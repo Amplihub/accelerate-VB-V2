@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import PillNav from "./components/PillNav";
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "./components/ui/accordion";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -155,7 +156,7 @@ const STEPS = [
     num: "04",
     accent: true,
     title: "Guaranteed Growth",
-    description: "1,000,000 views in 90 days, or your money back. Tracked together every month.",
+    description: "1M+ views in 90 days, or your money back. Tracked together every month.",
   },
 ];
 
@@ -320,6 +321,7 @@ const WALL_TILES: WallTile[] = [
     quote:
       "I'm very impressed, not just by the competence but by how insightful they are in providing custom made solutions in terms of social media strategy and production.",
   },
+  /*
   {
     name: "Goose McGrath",
     niche: "DashDotProperty",
@@ -327,6 +329,7 @@ const WALL_TILES: WallTile[] = [
     quote:
       "For the last year people have been asking how I create such awesome content. My secret weapon? They know exactly how to create incisive, viral content that cuts through the noise.",
   },
+  */
 ];
 
 // Bold the standout figures in brand blue right where they sit in the sentence.
@@ -353,9 +356,9 @@ function emphasizeFigures(text: string, figures?: string[]) {
 function WallMedia({ ratio }: { ratio: "portrait" | "landscape" }) {
   return (
     <div
-      className="relative w-full overflow-hidden mb-3.5"
+      className="relative w-full overflow-hidden mb-3.5 shrink-0"
       style={{
-        aspectRatio: ratio === "portrait" ? "4 / 5" : "16 / 10",
+        aspectRatio: "4 / 3",
         borderRadius: 11,
         background: "linear-gradient(155deg, #F2F4F8 0%, #E5E9F0 100%)",
       }}
@@ -408,8 +411,8 @@ function Section5B() {
   return (
     <section
       id="case-study-library"
-      className="border-t border-border overflow-hidden"
-      style={{ backgroundColor: "#FFFFFF", scrollMarginTop: 110 }}
+      className="overflow-hidden"
+      style={{ backgroundColor: "transparent", scrollMarginTop: 110 }}
     >
       {/* Small bottom pad on purpose: Section 7 below is also white and brings
           its own top padding, so a full 88px here reads as dead space. */}
@@ -441,20 +444,20 @@ function Section5B() {
         {/* ── The wall — every tile sits fully inside the container, no bleed ── */}
         <div
           ref={gridRef}
-          className="mt-12 columns-1 sm:columns-2 lg:columns-3 xl:columns-4"
-          style={{ columnGap: 18 }}
+          className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-[18px]"
         >
           {WALL_TILES.map((tile, i) => (
             <div
               key={tile.name}
               ref={(el) => { tileRefs.current[i] = el; }}
-              style={{ breakInside: "avoid", marginBottom: 18 }}
+              className="flex"
             >
               <article
                 className={
-                  tile.spotlight
+                  "w-full h-full flex flex-col " + 
+                  (tile.spotlight
                     ? "bg-white"
-                    : "opacity-[0.72] hover:opacity-100 transition-opacity duration-300 bg-white border border-[#ECEEF1] hover:border-[#D8DCE2]"
+                    : "opacity-[0.72] hover:opacity-100 transition-opacity duration-300 bg-white border border-[#ECEEF1] hover:border-[#D8DCE2]")
                 }
                 style={{
                   borderRadius: 15,
@@ -505,6 +508,73 @@ function Section5B() {
             </div>
           ))}
         </div>
+
+      </div>
+    </section>
+  );
+}
+
+/* ─────────────────────────────────────────────
+   Section 6 — FAQ
+───────────────────────────────────────────── */
+const FAQS = [
+  {
+    question: "What actually happens in the 90 days?",
+    answer: "We start with a deep audit of your current content and offer. Then, we build a custom content engine, script your videos, and guide you through the launch. Over the 90 days, we continuously test and optimize to guarantee you hit the 1M+ views milestone while capturing high-quality leads."
+  },
+  {
+    question: "Am I the right fit?",
+    answer: "This program is designed for founders, coaches, and creators who already have a proven offer and want to scale their attention and revenue. If you're willing to commit to the content system and follow our guidance, you are a great fit."
+  },
+  {
+    question: "How much is it?",
+    answer: "Our pricing is tailored to your specific needs and current scale. We discuss all investment details on our discovery call once we confirm we can actually help you achieve the guaranteed results."
+  },
+  {
+    question: "What is the guarantee?",
+    answer: "We guarantee you will hit 1M+ views in 90 days, or you get your money back. We're fully invested in your success, which is why we only take on clients we know we can scale."
+  },
+  {
+    question: "How can I sign up?",
+    answer: 'Simply click the "Book a Call" button to schedule a brief discovery session. We\'ll audit your current process, see if you\'re a fit, and map out your exact growth plan.'
+  }
+];
+
+function Section6FAQ() {
+  return (
+    <section id="faq" className="border-t border-border bg-[#FAFAFA]" style={{ scrollMarginTop: 110 }}>
+      <div className="max-w-[800px] mx-auto pt-[80px] pb-[80px] px-6">
+        
+        {/* Eyebrow */}
+        <div className="flex justify-center mb-5">
+          <span
+            className="inline-block font-bold uppercase tracking-[0.1em] text-[#1A56DB] rounded-full"
+            style={{ fontSize: "11px", backgroundColor: "#EAF1FF", padding: "5px 16px" }}
+          >
+            FAQ
+          </span>
+        </div>
+
+        {/* Headline */}
+        <h2
+          className="font-extrabold text-foreground text-center mb-12"
+          style={{ fontFamily: "'Inter', sans-serif", fontSize: "clamp(28px, 4vw, 42px)", letterSpacing: "-0.04em", lineHeight: 1.1 }}
+        >
+          Common Questions
+        </h2>
+
+        <Accordion type="single" collapsible className="w-full">
+          {FAQS.map((faq, index) => (
+            <AccordionItem key={index} value={`item-${index}`} className="border-b border-[#E7E7E7] py-2">
+              <AccordionTrigger className="text-left font-bold text-[#111111] hover:text-[#1A56DB] hover:no-underline" style={{ fontSize: "18px" }}>
+                {faq.question}
+              </AccordionTrigger>
+              <AccordionContent className="text-[#5B5F66] text-[16px] leading-relaxed">
+                {faq.answer}
+              </AccordionContent>
+            </AccordionItem>
+          ))}
+        </Accordion>
 
       </div>
     </section>
@@ -839,7 +909,7 @@ function Section5A() {
   }, []);
 
   return (
-    <section id="case-studies" className="border-t border-border" style={{ backgroundColor: "#FAFAFA", scrollMarginTop: 110 }}>
+    <section id="case-studies" className="border-t border-border" style={{ backgroundColor: "transparent", scrollMarginTop: 110 }}>
       <div className="max-w-[1200px] mx-auto pt-[80px] pb-[28px]">
 
         {/* Eyebrow — outlined pill, matches reference "CUSTOMER REVIEWS" style */}
@@ -864,9 +934,9 @@ function Section5A() {
         <div className="relative">
           {/* Left / right fade masks */}
           <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-12 z-10"
-            style={{ background: "linear-gradient(to right, #FAFAFA, transparent)" }} />
+            style={{ background: "linear-gradient(to right, #EAF1FF, transparent)" }} />
           <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-16 z-10"
-            style={{ background: "linear-gradient(to left, #FAFAFA, transparent)" }} />
+            style={{ background: "linear-gradient(to left, #EAF1FF, transparent)" }} />
 
           {/* Scrollable row */}
           <div
@@ -1022,6 +1092,7 @@ export default function App() {
   const mechFunnelWrapRef = useRef<HTMLDivElement>(null);
   const mechCalloutRefs = useRef<(HTMLDivElement | null)[]>([]);
   const mechConnectorRefs = useRef<(SVGLineElement | null)[]>([]);
+  const mechBadgeRefs = useRef<(SVGGElement | null)[]>([]);
 
   // Stat strip — numbers count up, caption follows
   const statStripRef = useRef<HTMLDivElement>(null);
@@ -1082,6 +1153,8 @@ export default function App() {
           });
           const callout = mechCalloutRefs.current[i];
           const connector = mechConnectorRefs.current[i];
+          const badge = mechBadgeRefs.current[i];
+          if (badge) mechTl.from(badge, { opacity: 0, scale: 0.5, duration: 0.5, transformOrigin: "center" }, "-=0.2");
           if (callout) mechTl.from(callout, { opacity: 0, y: 16, duration: 0.6 }, "-=0.2");
           if (connector) {
             // Draw in as a solid stroke, then settle back into its resting dashed pattern.
@@ -1164,7 +1237,12 @@ export default function App() {
           style={{ fontFamily: "'Inter', sans-serif", letterSpacing: "-0.04em", lineHeight: 1.1 }}
         >
           <span className="block" ref={heroLine1Ref}>
-            1,000,000 Views{" "}
+            {/* 1 Million carries the emphasis the long number used to get from its
+                sheer length — sized in em so it tracks the headline's clamp. */}
+            <span style={{ color: "#1A56DB", fontSize: "1.15em", letterSpacing: "-0.045em" }}>
+              1 Million
+            </span>{" "}
+            Views{" "}
             <span ref={heroGuaranteedRef} style={{ display: "inline-block" }}>
               <Highlight variant="solid">Guaranteed</Highlight>
             </span>
@@ -1290,7 +1368,7 @@ export default function App() {
       </section>
 
       {/* ── Section 3: The Process ── */}
-      <section id="work" className="bg-background border-t border-border" style={{ scrollMarginTop: 110 }}>
+      <section id="work" className="border-t border-border" style={{ scrollMarginTop: 110, backgroundColor: "#F0F4F8" }}>
         <div className="max-w-5xl mx-auto px-6 md:px-10 py-[80px]">
 
           <div className="flex justify-center mb-6">
@@ -1427,22 +1505,46 @@ export default function App() {
               <line x1="141" y1="50" x2="231" y2="540" stroke="white" strokeOpacity="0.32" strokeWidth="9" strokeLinecap="round" />
 
               {/* ── Leader lines — clean straight dashed lines, drawn in via stroke-dashoffset ── */}
-              <line ref={(el) => { mechConnectorRefs.current[0] = el; }} x1="243" y1="95" x2="20" y2="95"
+              <line ref={(el) => { mechConnectorRefs.current[0] = el; }} x1="238" y1="95" x2="20" y2="95"
                 stroke="#C98A2B" strokeWidth="1.4" strokeLinecap="round" strokeDasharray="4 4" opacity="0.55" />
-              <line ref={(el) => { mechConnectorRefs.current[1] = el; }} x1="277" y1="300" x2="500" y2="300"
+              <line ref={(el) => { mechConnectorRefs.current[1] = el; }} x1="282" y1="300" x2="500" y2="300"
                 stroke="#4A8AE8" strokeWidth="1.4" strokeLinecap="round" strokeDasharray="4 4" opacity="0.55" />
-              <line ref={(el) => { mechConnectorRefs.current[2] = el; }} x1="243" y1="520" x2="20" y2="520"
+              <line ref={(el) => { mechConnectorRefs.current[2] = el; }} x1="238" y1="520" x2="20" y2="520"
                 stroke="#3A9460" strokeWidth="1.4" strokeLinecap="round" strokeDasharray="4 4" opacity="0.55" />
 
-              {/* ── Badges — clean typeset numerals, same treatment as the Process step markers ── */}
-              <rect x="243" y="86" width="34" height="18" rx="9" fill="#C98A2B" />
-              <text x="260" y="99.5" textAnchor="middle" fill="white" fontSize="12" fontFamily="'Inter', sans-serif" fontWeight="700">01</text>
+              {/* ── Badges — Custom SVG Icons matching the Process step markers ── */}
+              {/* Badge 01: Content Creates Attention (Amber) */}
+              <g ref={(el) => { mechBadgeRefs.current[0] = el; }} style={{ transformOrigin: "260px 95px" }}>
+                <circle cx="260" cy="96" r="22" fill="rgba(0,0,0,0.14)" />
+                <circle cx="260" cy="95" r="22" fill="#C98A2B" stroke="#ffffff" strokeWidth="2" />
+                <g transform="translate(248, 83)" fill="none" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="3" y="4" width="18" height="16" rx="4" />
+                  <path d="M10 9l4 3-4 3z" />
+                </g>
+              </g>
 
-              <rect x="243" y="291" width="34" height="18" rx="9" fill="#1A56DB" />
-              <text x="260" y="304.5" textAnchor="middle" fill="white" fontSize="12" fontFamily="'Inter', sans-serif" fontWeight="700">02</text>
+              {/* Badge 02: Attention Becomes Leads (Blue) */}
+              <g ref={(el) => { mechBadgeRefs.current[1] = el; }} style={{ transformOrigin: "260px 300px" }}>
+                <circle cx="260" cy="301" r="22" fill="rgba(0,0,0,0.14)" />
+                <circle cx="260" cy="300" r="22" fill="#1A56DB" stroke="#ffffff" strokeWidth="2" />
+                <g transform="translate(248, 288)" fill="none" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="8" y="4" width="13" height="16" rx="3" />
+                  <circle cx="14.5" cy="10" r="2.5" />
+                  <path d="M11 16c0-2 2-3 3.5-3s3.5 1 3.5 3" />
+                  <path d="M3 12h5" />
+                  <path d="M5 9l3 3-3 3" />
+                </g>
+              </g>
 
-              <rect x="243" y="511" width="34" height="18" rx="9" fill="#1F7A4D" />
-              <text x="260" y="524.5" textAnchor="middle" fill="white" fontSize="12" fontFamily="'Inter', sans-serif" fontWeight="700">03</text>
+              {/* Badge 03: Leads Become Revenue (Green) */}
+              <g ref={(el) => { mechBadgeRefs.current[2] = el; }} style={{ transformOrigin: "260px 520px" }}>
+                <circle cx="260" cy="521" r="22" fill="rgba(0,0,0,0.14)" />
+                <circle cx="260" cy="520" r="22" fill="#1F7A4D" stroke="#ffffff" strokeWidth="2" />
+                <g transform="translate(248, 508)" fill="none" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="3 17 9 11 13 15 21 7" />
+                  <polyline points="14 7 21 7 21 14" />
+                </g>
+              </g>
             </svg>
 
             {/* ── Callout 01 — top, left column, real HTML type ── */}
@@ -1581,11 +1683,18 @@ export default function App() {
 
       </section>
 
-      {/* ── Section 5A: Best Results ── */}
-      <Section5A />
+      <div style={{ backgroundColor: "#ffffff" }}>
+        {/* ── Section 5A: Best Results ── */}
+        <Section5A />
+      </div>
 
-      {/* ── Section 5B: Full Case Study Library ── */}
-      <Section5B />
+      <div style={{ backgroundColor: "#EAF1FF" }}>
+        {/* ── Section 5B: Full Case Study Library ── */}
+        <Section5B />
+      </div>
+
+      {/* ── Section 6: FAQ ── */}
+      <Section6FAQ />
 
       {/* ── Section 7: Final CTA ── */}
       <Section7 />
