@@ -129,16 +129,23 @@
   transform: translateY(-7px) rotate(-45deg);
 }
 
-/* ── Mobile dropdown — white panel, consistent with bar ── */
+/* ── Mobile dropdown — white panel, consistent with bar ──
+   Sits above .pill-nav (z-index 1000). It needs its own stacking order because
+   it's a sibling of <nav>, not a child: without it, any page element GSAP has
+   put a transform on (e.g. the hero's "Guaranteed" span) creates a stacking
+   context that paints straight through the panel.
+   Background is a literal white, not var(--nav-pill-color) — the custom props
+   are set on <nav>, which this element is not inside of. */
 .pill-nav__mobile-dropdown {
   position: fixed;
-  top: 76px;
+  top: 88px;
   left: 50%;
+  z-index: 1100;
   transform: translateX(-50%);
   width: calc(100vw - 32px);
   max-width: 360px;
   border-radius: 20px;
-  background-color: var(--nav-pill-color, #ffffff);
+  background-color: #ffffff;
   border: 1px solid #E7E7E7;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
   padding: 8px;
@@ -160,7 +167,11 @@
   .pill-bar {
     display: none;
   }
+  /* Same diameter as .pill-logo-wrapper so the two circles in the mobile
+     bar read as a matched pair. */
   .pill-nav__hamburger {
     display: flex;
+    width: 56px;
+    height: 56px;
   }
 }

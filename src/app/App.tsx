@@ -209,6 +209,308 @@ const CASE_STUDIES = [
   },
 ];
 
+// Section 5B — the full case study library ("wall of proof")
+// Two visual weights only: `spotlight` tiles sit forward (full opacity, solid
+// brand border, elevated), everything else recedes at reduced opacity. The
+// ratio is deliberately weighted toward dimmed — that contrast *is* the depth
+// effect.
+// ⚠️ DEV NOTE: every tile carries an empty media slot — drop the real video
+// embed/thumbnail in before going live.
+type WallTile = {
+  name: string;
+  niche: string;
+  spotlight?: boolean;
+  media?: "portrait" | "landscape";
+  result?: string;
+  /**
+   * Standout figures. Each must appear verbatim inside `result` — they're
+   * emphasized in brand blue where they already sit in the sentence, not
+   * pulled out into separate tags. Spotlight tiles only.
+   */
+  tags?: string[];
+  quote?: string;
+};
+
+// Order matters: spotlights are spaced through the array so the masonry
+// columns each pick one up instead of stacking them all in column 1.
+const WALL_TILES: WallTile[] = [
+  {
+    name: "Paulette Kamenecka",
+    niche: "Pregnancy Health",
+    spotlight: true,
+    media: "portrait",
+    result: "2 years of zero traction, then 5.2M views on one video.",
+    tags: ["5.2M views"],
+  },
+  {
+    name: "Kiki Keysers",
+    niche: "Kivari · Fashion",
+    media: "landscape",
+    result: "Two videos alone brought in roughly 9,000 new followers combined.",
+  },
+  {
+    name: "Matt Tinkler",
+    niche: "Music Producer",
+    media: "landscape",
+    result: "From 200 to 300 views a video to 700K+ views generated in 90 days.",
+  },
+  {
+    name: "Kaushi Gunasekera",
+    niche: "Real Estate Buyers Agent",
+    media: "landscape",
+    result: "Zero calls booked to 9 calls in 2 weeks off one video.",
+  },
+  {
+    name: "Robert Herjavec",
+    niche: "Shark Tank",
+    spotlight: true,
+    media: "portrait",
+    result:
+      "25 years invisible on social, now past 1M followers with videos crossing 20M views, 16M+ impressions a month.",
+    tags: ["20M+ views", "1M followers"],
+  },
+  {
+    name: "Vivek Krishnan",
+    niche: "Real Estate",
+    media: "landscape",
+    result: "Broke out from 300 to 500 views a video to a 111K+ view video.",
+  },
+  {
+    name: "Daniel Trkulja",
+    niche: "Thread Labs · Ecommerce Education",
+    media: "landscape",
+    result:
+      '"Before vs after" reel passed 1M views, gained 800+ followers in a week reaching 10.2K total.',
+    quote:
+      "It's been a fantastic experience, from brand identity to communication to going the extra mile, incredibly helpful, especially as someone completely new to this.",
+  },
+  {
+    name: "Ishini",
+    niche: "Concolabs · B2B Professional Services",
+    media: "landscape",
+    result: "One single LinkedIn post generated 14 qualified leads.",
+  },
+  {
+    name: "Ali Truwit / STYT",
+    niche: "Stronger Than You Think · Nonprofit",
+    spotlight: true,
+    media: "portrait",
+    result:
+      "From zero audience to 24M+ views across platforms, funding over $1M raised, 20+ prosthetics, and swim lessons for 2,000+ kids.",
+    tags: ["24M+ views", "$1M raised"],
+  },
+  {
+    name: "CloverOne",
+    niche: "SaaS",
+    media: "landscape",
+    result:
+      'Started from zero pre-launch audience, "Pay vs Free" video hit 893K views on Facebook.',
+  },
+  {
+    name: "Umi Saloons",
+    niche: "Luxury Hair Salon · New York",
+    media: "landscape",
+    result:
+      "From 300 to 500 views a post to a 3.7M view video, TikTok following grew 157 to 771.",
+  },
+  {
+    name: "Shaveen Bandaranayake",
+    niche: "The Law Simplified",
+    media: "landscape",
+    quote:
+      "I'm very impressed, not just by the competence but by how insightful they are in providing custom made solutions in terms of social media strategy and production.",
+  },
+  {
+    name: "Goose McGrath",
+    niche: "DashDotProperty",
+    media: "landscape",
+    quote:
+      "For the last year people have been asking how I create such awesome content. My secret weapon? They know exactly how to create incisive, viral content that cuts through the noise.",
+  },
+];
+
+// Bold the standout figures in brand blue right where they sit in the sentence.
+// No pill, no background — same size and flow as the copy around them.
+function emphasizeFigures(text: string, figures?: string[]) {
+  if (!figures?.length) return text;
+  const pattern = new RegExp(
+    `(${figures.map((f) => f.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")).join("|")})`,
+    "g"
+  );
+  return text.split(pattern).map((part, i) =>
+    figures.includes(part) ? (
+      <strong key={i} style={{ color: "#1A56DB", fontWeight: 700 }}>
+        {part}
+      </strong>
+    ) : (
+      part
+    )
+  );
+}
+
+// Empty media slot — a real video goes here. Neutral on purpose: no stock
+// photography standing in for a named client.
+function WallMedia({ ratio }: { ratio: "portrait" | "landscape" }) {
+  return (
+    <div
+      className="relative w-full overflow-hidden mb-3.5"
+      style={{
+        aspectRatio: ratio === "portrait" ? "4 / 5" : "16 / 10",
+        borderRadius: 11,
+        background: "linear-gradient(155deg, #F2F4F8 0%, #E5E9F0 100%)",
+      }}
+      aria-hidden="true"
+    >
+      <div className="absolute inset-0 flex items-center justify-center">
+        <span
+          className="flex items-center justify-center rounded-full bg-white"
+          style={{ width: 32, height: 32, boxShadow: "0 1px 4px rgba(17,17,17,0.10)" }}
+        >
+          <svg width="10" height="12" viewBox="0 0 10 12" fill="none" style={{ marginLeft: 2 }}>
+            <path d="M0.5 1.2v9.6L9 6 0.5 1.2Z" fill="#1A56DB" />
+          </svg>
+        </span>
+      </div>
+    </div>
+  );
+}
+
+/* ─────────────────────────────────────────────
+   Section 5B — Full Case Study Library
+   Masonry wall, light theme. Depth comes from
+   opacity: a few tiles forward, the rest behind,
+   edges bleeding past the container crop.
+───────────────────────────────────────────── */
+function Section5B() {
+  const gridRef = useRef<HTMLDivElement>(null);
+  const tileRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  useEffect(() => {
+    if (prefersReducedMotion()) return;
+    const ctx = gsap.context(() => {
+      const tiles = tileRefs.current.filter((el): el is HTMLDivElement => Boolean(el));
+      if (!tiles.length) return;
+      // Animate the outer wrapper, never the tile itself — the tile's own
+      // opacity is the dim/hover state and must stay owned by CSS.
+      gsap.from(tiles, {
+        opacity: 0,
+        y: 20,
+        duration: DURATION,
+        ease: EASE,
+        stagger: 0.045,
+        clearProps: "opacity,transform",
+        scrollTrigger: { trigger: gridRef.current, start: "top 85%", once: true },
+      });
+    });
+    return () => ctx.revert();
+  }, []);
+
+  return (
+    <section
+      id="case-study-library"
+      className="border-t border-border overflow-hidden"
+      style={{ backgroundColor: "#FFFFFF", scrollMarginTop: 110 }}
+    >
+      {/* Small bottom pad on purpose: Section 7 below is also white and brings
+          its own top padding, so a full 88px here reads as dead space. */}
+      <div className="max-w-[1200px] mx-auto pt-[72px] pb-[28px] px-6">
+
+        {/* Eyebrow — same pill as the rest of the page. Deliberately not
+            "The Results": Section 5A directly above already owns that tag. */}
+        <div className="flex justify-center mb-5 px-6">
+          <span
+            className="inline-block font-bold uppercase tracking-[0.1em] text-[#1A56DB] rounded-full"
+            style={{ fontSize: "11px", backgroundColor: "#EAF1FF", padding: "5px 16px" }}
+          >
+            The Proof
+          </span>
+        </div>
+
+        <h2
+          className="font-extrabold text-foreground text-center px-6"
+          style={{
+            fontFamily: "'Inter', sans-serif",
+            fontSize: "clamp(28px, 4vw, 48px)",
+            letterSpacing: "-0.04em",
+            lineHeight: 1.1,
+          }}
+        >
+          Every Result We Can Show You
+        </h2>
+
+        {/* ── The wall — every tile sits fully inside the container, no bleed ── */}
+        <div
+          ref={gridRef}
+          className="mt-12 columns-1 sm:columns-2 lg:columns-3 xl:columns-4"
+          style={{ columnGap: 18 }}
+        >
+          {WALL_TILES.map((tile, i) => (
+            <div
+              key={tile.name}
+              ref={(el) => { tileRefs.current[i] = el; }}
+              style={{ breakInside: "avoid", marginBottom: 18 }}
+            >
+              <article
+                className={
+                  tile.spotlight
+                    ? "bg-white"
+                    : "opacity-[0.72] hover:opacity-100 transition-opacity duration-300 bg-white border border-[#ECEEF1] hover:border-[#D8DCE2]"
+                }
+                style={{
+                  borderRadius: 15,
+                  padding: 18,
+                  willChange: "opacity",
+                  ...(tile.spotlight
+                    ? {
+                        border: "2px solid #1A56DB",
+                        boxShadow:
+                          "0 12px 30px -14px rgba(26,86,219,0.38), 0 2px 6px rgba(17,17,17,0.05)",
+                      }
+                    : {}),
+                }}
+              >
+                {tile.media && <WallMedia ratio={tile.media} />}
+
+                <p
+                  className="font-bold text-[#111111] leading-tight"
+                  style={{ fontSize: 14, letterSpacing: "-0.01em" }}
+                >
+                  {tile.name}
+                </p>
+
+                {tile.niche && (
+                  <p
+                    className="text-[#5B5F66] uppercase mt-1"
+                    style={{ fontSize: 10.5, letterSpacing: "0.07em", fontWeight: 600 }}
+                  >
+                    {tile.niche}
+                  </p>
+                )}
+
+                {tile.result && (
+                  <p className="text-[#3F444B] leading-relaxed mt-2.5" style={{ fontSize: 13.5 }}>
+                    {emphasizeFigures(tile.result, tile.tags)}
+                  </p>
+                )}
+
+                {tile.quote && (
+                  <p
+                    className="font-serif italic text-[#5B5F66] leading-relaxed mt-3 pt-3"
+                    style={{ fontSize: 13, borderTop: "1px solid #F0F1F3" }}
+                  >
+                    "{tile.quote}"
+                  </p>
+                )}
+              </article>
+            </div>
+          ))}
+        </div>
+
+      </div>
+    </section>
+  );
+}
+
 /* ─────────────────────────────────────────────
    Section 7 — Final CTA
    Deep navy block, rounded top corners, oversized
@@ -270,8 +572,8 @@ function Section7() {
         ref={ctaTriggerRef}
         style={{
           backgroundColor: "#ffffff",
-          paddingTop: "96px",
-          paddingBottom: "96px",
+          paddingTop: "60px",
+          paddingBottom: "80px",
           textAlign: "center",
         }}
       >
@@ -432,7 +734,7 @@ function Section7() {
           backgroundColor: "#12377A",
           borderRadius: "28px 28px 0 0",
           overflow: "hidden",
-          paddingTop: "52px",
+          paddingTop: "44px",
         }}
       >
         {/* Cropped wordmark — tone-on-tone: slightly lighter navy tint */}
@@ -538,7 +840,7 @@ function Section5A() {
 
   return (
     <section id="case-studies" className="border-t border-border" style={{ backgroundColor: "#FAFAFA", scrollMarginTop: 110 }}>
-      <div className="max-w-[1200px] mx-auto pt-[96px] pb-[32px]">
+      <div className="max-w-[1200px] mx-auto pt-[80px] pb-[28px]">
 
         {/* Eyebrow — outlined pill, matches reference "CUSTOMER REVIEWS" style */}
         <div className="flex justify-center mb-5 px-6">
@@ -709,6 +1011,7 @@ export default function App() {
   const heroGuaranteedRef = useRef<HTMLSpanElement>(null);
   const heroMoneyBackRef = useRef<HTMLDivElement>(null);
   const heroTaglineRef = useRef<HTMLParagraphElement>(null);
+  const heroCtaRef = useRef<HTMLDivElement>(null);
   const heroSocialProofRef = useRef<HTMLDivElement>(null);
 
   // Process — one ref per step row + one per connector fill
@@ -741,7 +1044,8 @@ export default function App() {
         )
         .to(heroGuaranteedRef.current, { scale: 1, duration: 0.18, ease: EASE })
         .from([heroMoneyBackRef.current, heroTaglineRef.current], { opacity: 0, y: 16, duration: 0.6 }, "-=0.05")
-        .from(heroSocialProofRef.current, { opacity: 0, y: 16, duration: 0.6 });
+        .from(heroCtaRef.current, { opacity: 0, y: 16, duration: 0.6 }, "-=0.35")
+        .from(heroSocialProofRef.current, { opacity: 0, y: 16, duration: 0.6 }, "-=0.35");
 
       // ── Process — each step slides in from its own zigzag side; connector draws after ──
       processStepRefs.current.forEach((row, i) => {
@@ -849,11 +1153,15 @@ export default function App() {
       />
 
       {/* ── Hero ── */}
-      {/* pt-[140px] clears the fixed PillNav (~84px tall + 20px top offset) */}
-      <section className="max-w-5xl mx-auto px-6 md:px-10 pt-[140px] pb-[96px] text-center">
+      {/* pt clears the fixed PillNav — 140px on desktop (~84px tall + 20px top
+          offset), less on mobile where the bar is only 56px tall. */}
+      <section className="max-w-5xl mx-auto px-6 md:px-10 pt-[116px] sm:pt-[140px] pb-[60px] sm:pb-[80px] text-center">
+        {/* Below sm the type keeps its current ~28px on a normal phone but is
+            free to shrink on narrow ones, so the headline never forces a
+            horizontal scroll. sm and up is untouched. */}
         <h1
-          className="font-extrabold text-foreground mb-5"
-          style={{ fontFamily: "'Inter', sans-serif", fontSize: "clamp(28px, 5.5vw, 66px)", letterSpacing: "-0.04em", lineHeight: 1.1 }}
+          className="font-extrabold text-foreground mb-4 sm:mb-5 text-[clamp(23px,7.4vw,28px)] sm:text-[clamp(28px,5.5vw,66px)]"
+          style={{ fontFamily: "'Inter', sans-serif", letterSpacing: "-0.04em", lineHeight: 1.1 }}
         >
           <span className="block" ref={heroLine1Ref}>
             1,000,000 Views{" "}
@@ -865,7 +1173,7 @@ export default function App() {
         </h1>
 
         {/* Sub-headline — plain grey text, money emoji accents the one word that matters */}
-        <div className="flex justify-center mb-5" ref={heroMoneyBackRef}>
+        <div className="flex justify-center mb-4 sm:mb-5" ref={heroMoneyBackRef}>
           <p
             className="font-sans font-bold"
             style={{
@@ -879,16 +1187,63 @@ export default function App() {
           </p>
         </div>
 
+        {/* nowrap only from sm up — on a phone the single line was wider than
+            the viewport, and was what forced the page to scroll sideways. */}
         <p
           ref={heroTaglineRef}
-          className="text-muted-foreground font-normal mb-10 mx-auto leading-relaxed"
-          style={{ fontSize: "clamp(13px, 1.4vw, 17px)", whiteSpace: "nowrap" }}
+          className="text-muted-foreground font-normal mb-7 sm:mb-10 mx-auto leading-relaxed whitespace-normal sm:whitespace-nowrap"
+          style={{ fontSize: "clamp(13px, 1.4vw, 17px)" }}
         >
           The most <Highlight>measurable</Highlight> guarantee in content marketing.
         </p>
 
-        {/* Social proof — no container, avatars + text sit directly on the page */}
-        <div className="flex items-center justify-center gap-3" ref={heroSocialProofRef}>
+        {/* Primary CTA — same button system as the closing CTA in Section 7,
+            wired to the booking section rather than being a dead button. */}
+        <div className="flex justify-center mb-8 sm:mb-10" ref={heroCtaRef}>
+          <a
+            href="#contact"
+            className="font-sans font-semibold tracking-[0.025em] cursor-pointer transition-all duration-200 inline-flex items-center justify-between no-underline"
+            style={{
+              backgroundColor: "#1A56DB",
+              color: "#ffffff",
+              fontSize: "15px",
+              padding: "10px",
+              borderRadius: "999px",
+              border: "1px solid #1540B0",
+              width: "220px",
+              boxShadow: "0 10px 28px rgba(26,86,219,0.28)",
+            }}
+            onMouseEnter={e => {
+              e.currentTarget.style.backgroundColor = "#1749C8";
+              e.currentTarget.style.transform = "translateY(-2px)";
+              e.currentTarget.style.boxShadow = "0 14px 34px rgba(26,86,219,0.38)";
+            }}
+            onMouseLeave={e => {
+              e.currentTarget.style.backgroundColor = "#1A56DB";
+              e.currentTarget.style.transform = "translateY(0)";
+              e.currentTarget.style.boxShadow = "0 10px 28px rgba(26,86,219,0.28)";
+            }}
+          >
+            {/* left ghost spacer = same width as arrow circle to optically center the text */}
+            <span style={{ width: 34, height: 34, flexShrink: 0 }} aria-hidden="true" />
+            <span className="flex-1 text-center">Book a Call</span>
+            <span
+              className="inline-flex items-center justify-center rounded-full shrink-0"
+              style={{ width: 34, height: 34, backgroundColor: "rgba(255,255,255,0.18)" }}
+            >
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <path d="M3 7h8M7.5 3.5L11 7l-3.5 3.5" stroke="#ffffff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </span>
+          </a>
+        </div>
+
+        {/* Social proof — no container, avatars + text sit directly on the page.
+            Stacks on mobile: side by side left the text in a ~180px column. */}
+        <div
+          className="flex flex-col sm:flex-row items-center justify-center gap-2.5 sm:gap-3"
+          ref={heroSocialProofRef}
+        >
           <div className="flex items-center shrink-0" style={{ position: "relative" }}>
             {AVATARS.map((avatar, i) => (
               <img
@@ -924,7 +1279,7 @@ export default function App() {
               ⭐
             </span>
           </div>
-          <p className="text-[14px] text-muted-foreground leading-snug text-left">
+          <p className="text-[14px] text-muted-foreground leading-snug text-center sm:text-left">
             Used by{" "}
             <span className="text-foreground font-semibold">Robert Herjavec</span>,{" "}
             <span className="text-foreground font-semibold">Daniel Lubetzky</span>,{" "}
@@ -936,7 +1291,7 @@ export default function App() {
 
       {/* ── Section 3: The Process ── */}
       <section id="work" className="bg-background border-t border-border" style={{ scrollMarginTop: 110 }}>
-        <div className="max-w-5xl mx-auto px-6 md:px-10 py-[96px]">
+        <div className="max-w-5xl mx-auto px-6 md:px-10 py-[80px]">
 
           <div className="flex justify-center mb-6">
             <span
@@ -1012,7 +1367,7 @@ export default function App() {
 
       {/* ── Section 4: The Mechanism ── */}
       <section className="bg-background border-t border-border">
-        <div className="max-w-[1150px] mx-auto px-6 md:px-10 pt-[96px]">
+        <div className="max-w-[1150px] mx-auto px-6 md:px-10 pt-[80px]">
 
           {/* Eyebrow */}
           <div className="flex justify-center mb-6">
@@ -1172,12 +1527,15 @@ export default function App() {
         </div>
 
         {/* Stat strip — pale blue "proof" band */}
-        <div ref={statStripRef} className="border-t border-border mt-[96px]" style={{ backgroundColor: "#F5F8FF" }}>
-          <div className="max-w-5xl mx-auto px-6 md:px-10 py-20 md:py-24">
+        <div ref={statStripRef} className="border-t border-border mt-[80px]" style={{ backgroundColor: "#F5F8FF" }}>
+          <div className="max-w-5xl mx-auto px-6 md:px-10 py-16 md:py-20">
 
             <div className="flex flex-col md:flex-row items-center justify-center">
               {STATS.map((stat, i) => (
-                <div key={i} className="flex items-stretch">
+                // Stacks on mobile so the horizontal rule sits *under* the stat.
+                // As a row it was sharing the line with the stat and shoving it
+                // off-centre. md and up keeps the original row + vertical rule.
+                <div key={i} className="flex flex-col md:flex-row items-stretch">
                   <div className="flex flex-col items-center justify-center px-14 py-8 md:py-2 text-center">
                     <span
                       ref={(el) => { statValueRefs.current[i] = el; }}
@@ -1225,6 +1583,9 @@ export default function App() {
 
       {/* ── Section 5A: Best Results ── */}
       <Section5A />
+
+      {/* ── Section 5B: Full Case Study Library ── */}
+      <Section5B />
 
       {/* ── Section 7: Final CTA ── */}
       <Section7 />
