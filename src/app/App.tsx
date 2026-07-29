@@ -161,7 +161,7 @@ const STEPS = [
 ];
 
 const STATS = [
-  { value: "1B+",   label: "Views Generated" },
+  { value: "2B+",   label: "Views Generated" },
   { value: "$130M+", label: "Revenue Generated" },
   { value: "1.5B+", label: "Audience Reach" },
 ];
@@ -1367,6 +1367,59 @@ export default function App() {
         </div>
       </section>
 
+      {/* Stat strip — pale blue "proof" band */}
+      <div ref={statStripRef} className="border-t border-border" style={{ backgroundColor: "#F5F8FF" }}>
+        <div className="max-w-5xl mx-auto px-6 md:px-10 py-16 md:py-20">
+
+          <div className="flex flex-col md:flex-row items-center justify-center">
+            {STATS.map((stat, i) => (
+              // Stacks on mobile so the horizontal rule sits *under* the stat.
+              // As a row it was sharing the line with the stat and shoving it
+              // off-centre. md and up keeps the original row + vertical rule.
+              <div key={i} className="flex flex-col md:flex-row items-stretch">
+                <div className="flex flex-col items-center justify-center px-14 py-8 md:py-2 text-center">
+                  <span
+                    ref={(el) => { statValueRefs.current[i] = el; }}
+                    className="font-extrabold text-[#1A56DB] block"
+                    style={{ fontFamily: "'Inter', sans-serif", letterSpacing: "-0.04em", fontSize: "clamp(34px, 4.2vw, 56px)", lineHeight: 1.1 }}
+                  >
+                    {stat.value}
+                  </span>
+                  <span
+                    className="text-muted-foreground uppercase tracking-[0.1em] font-semibold mt-2 block"
+                    style={{ fontSize: "11px" }}
+                  >
+                    {stat.label}
+                  </span>
+                </div>
+                {i < STATS.length - 1 && (
+                  <>
+                    <div
+                      className="hidden md:block self-stretch"
+                      style={{ width: "1px", backgroundColor: "#E7E7E7", margin: "8px 0" }}
+                    />
+                    <div
+                      className="block md:hidden mx-auto"
+                      style={{ height: "1px", width: "48px", backgroundColor: "#E7E7E7" }}
+                    />
+                  </>
+                )}
+              </div>
+            ))}
+          </div>
+
+          <p
+            ref={statCaptionRef}
+            className="text-center text-muted-foreground font-serif italic mt-10"
+            style={{ fontSize: "14px" }}
+          >
+            Already true today,{" "}
+            <Highlight variant="solid" style={{ borderRadius: "7px", padding: "2px 8px", fontStyle: "normal" }}>not a projection</Highlight>.
+          </p>
+
+        </div>
+      </div>
+
       {/* ── Section 3: The Process ── */}
       <section id="work" className="border-t border-border" style={{ scrollMarginTop: 110, backgroundColor: "#F0F4F8" }}>
         <div className="max-w-5xl mx-auto px-6 md:px-10 py-[80px]">
@@ -1541,8 +1594,8 @@ export default function App() {
                 <circle cx="260" cy="521" r="22" fill="rgba(0,0,0,0.14)" />
                 <circle cx="260" cy="520" r="22" fill="#1F7A4D" stroke="#ffffff" strokeWidth="2" />
                 <g transform="translate(248, 508)" fill="none" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <polyline points="3 17 9 11 13 15 21 7" />
-                  <polyline points="14 7 21 7 21 14" />
+                  <line x1="12" y1="2" x2="12" y2="22" />
+                  <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
                 </g>
               </g>
             </svg>
@@ -1628,58 +1681,7 @@ export default function App() {
 
         </div>
 
-        {/* Stat strip — pale blue "proof" band */}
-        <div ref={statStripRef} className="border-t border-border mt-[80px]" style={{ backgroundColor: "#F5F8FF" }}>
-          <div className="max-w-5xl mx-auto px-6 md:px-10 py-16 md:py-20">
 
-            <div className="flex flex-col md:flex-row items-center justify-center">
-              {STATS.map((stat, i) => (
-                // Stacks on mobile so the horizontal rule sits *under* the stat.
-                // As a row it was sharing the line with the stat and shoving it
-                // off-centre. md and up keeps the original row + vertical rule.
-                <div key={i} className="flex flex-col md:flex-row items-stretch">
-                  <div className="flex flex-col items-center justify-center px-14 py-8 md:py-2 text-center">
-                    <span
-                      ref={(el) => { statValueRefs.current[i] = el; }}
-                      className="font-extrabold text-[#1A56DB] block"
-                      style={{ fontFamily: "'Inter', sans-serif", letterSpacing: "-0.04em", fontSize: "clamp(34px, 4.2vw, 56px)", lineHeight: 1.1 }}
-                    >
-                      {stat.value}
-                    </span>
-                    <span
-                      className="text-muted-foreground uppercase tracking-[0.1em] font-semibold mt-2 block"
-                      style={{ fontSize: "11px" }}
-                    >
-                      {stat.label}
-                    </span>
-                  </div>
-                  {i < STATS.length - 1 && (
-                    <>
-                      <div
-                        className="hidden md:block self-stretch"
-                        style={{ width: "1px", backgroundColor: "#E7E7E7", margin: "8px 0" }}
-                      />
-                      <div
-                        className="block md:hidden mx-auto"
-                        style={{ height: "1px", width: "48px", backgroundColor: "#E7E7E7" }}
-                      />
-                    </>
-                  )}
-                </div>
-              ))}
-            </div>
-
-            <p
-              ref={statCaptionRef}
-              className="text-center text-muted-foreground font-serif italic mt-10"
-              style={{ fontSize: "14px" }}
-            >
-              Already true today,{" "}
-              <Highlight variant="solid" style={{ borderRadius: "7px", padding: "2px 8px", fontStyle: "normal" }}>not a projection</Highlight>.
-            </p>
-
-          </div>
-        </div>
 
       </section>
 
