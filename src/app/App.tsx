@@ -1144,7 +1144,6 @@ function SectionBreak({
 export default function App() {
   // Hero — plays once on load
   const heroLine1Ref = useRef<HTMLSpanElement>(null);
-  const heroLine2Ref = useRef<HTMLSpanElement>(null);
   const heroLine3Ref = useRef<HTMLSpanElement>(null);
   const heroRevenueTagRef = useRef<HTMLSpanElement>(null);
   const heroCtaRef = useRef<HTMLDivElement>(null);
@@ -1172,7 +1171,6 @@ export default function App() {
       const heroTl = gsap.timeline({ defaults: { ease: EASE } });
       heroTl
         .from(heroLine1Ref.current, { opacity: 0, y: 24, duration: DURATION })
-        .from(heroLine2Ref.current, { opacity: 0, y: 24, duration: DURATION }, "-=0.45")
         .from(heroLine3Ref.current, { opacity: 0, y: 24, duration: DURATION }, "-=0.45")
         .fromTo(
           heroRevenueTagRef.current,
@@ -1304,12 +1302,24 @@ export default function App() {
             free to shrink on narrow ones, so the headline never forces a
             horizontal scroll. sm and up is untouched. */}
         <h1
-          className="font-extrabold text-foreground mb-4 sm:mb-5 text-[clamp(30px,9.5vw,40px)] sm:text-[clamp(28px,5.5vw,66px)]"
+          className="font-extrabold text-foreground mb-4 sm:mb-5"
           style={{ fontFamily: "'Inter', sans-serif", letterSpacing: "-0.04em", lineHeight: 1.1 }}
         >
-          <span className="block" ref={heroLine1Ref}>More Views.</span>
-          <span className="block" ref={heroLine2Ref}>More Leads.</span>
-          <span className="block" ref={heroLine3Ref}>
+          {/* Funnel layout — Views + Leads sit together, small and muted grey,
+              the "inputs." Revenue lands alone on its own line directly below,
+              full size and solid-blue, the single "payoff" the first line
+              funnels into. Whole phrase shares one box so nothing has to
+              line up across two different type treatments. */}
+          <span
+            className="block text-[clamp(20px,6vw,26px)] sm:text-[clamp(24px,3.1vw,36px)] font-bold text-foreground uppercase tracking-[0.03em]"
+            ref={heroLine1Ref}
+          >
+            More Views. More Leads
+          </span>
+          <span
+            className="block mt-2 sm:mt-3 text-[clamp(28px,8.6vw,36px)] sm:text-[clamp(30px,5.2vw,60px)]"
+            ref={heroLine3Ref}
+          >
             <span ref={heroRevenueTagRef} style={{ display: "inline-block" }}>
               <Highlight variant="solid">More Revenue.</Highlight>
             </span>
