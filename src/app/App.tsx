@@ -584,6 +584,173 @@ function Section6FAQ() {
 }
 
 /* ─────────────────────────────────────────────
+   Section 6B — The Guarantee (Version B only)
+   Deep-navy block, but a deliberate break from the
+   centered-stack formula used by the Hero and Final
+   CTA: an asymmetric text + seal-medallion split, so
+   this doesn't just read as "another centered navy
+   block." Hero B never states the guarantee up front
+   the way Hero A does, so it lands here instead — the
+   last, most definitive beat before the final ask.
+───────────────────────────────────────────── */
+function SectionGuarantee() {
+  const triggerRef = useRef<HTMLDivElement>(null);
+  const eyebrowRef = useRef<HTMLDivElement>(null);
+  const headlineRef = useRef<HTMLHeadingElement>(null);
+  const bodyRef = useRef<HTMLParagraphElement>(null);
+  const numeralRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (prefersReducedMotion()) return;
+    const ctx = gsap.context(() => {
+      const textTargets = [eyebrowRef.current, headlineRef.current, bodyRef.current].filter(
+        (el): el is HTMLElement => Boolean(el)
+      );
+      const tl = gsap.timeline({
+        scrollTrigger: { trigger: triggerRef.current, start: "top 80%", once: true },
+        defaults: { ease: EASE },
+      });
+      tl.from(textTargets, { opacity: 0, y: 20, duration: DURATION, stagger: 0.12 });
+      tl.from(numeralRef.current, { opacity: 0, scale: 0.85, duration: 0.6 }, "-=0.3");
+    });
+    return () => ctx.revert();
+  }, []);
+
+  return (
+    <section ref={triggerRef} style={{ backgroundColor: "#1A56DB", overflow: "hidden" }}>
+      <div
+        className="max-w-6xl mx-auto px-6 md:px-10 flex flex-col lg:flex-row items-center gap-12 lg:gap-10"
+        style={{ paddingTop: "120px", paddingBottom: "120px" }}
+      >
+
+        {/* Left column — text, left-aligned, ~55% */}
+        <div className="w-full lg:w-[55%] text-left">
+
+          {/* Eyebrow — inverted pill: translucent white outline, no fill, since the usual light-blue tint tag reads invisible on navy */}
+          <div className="flex justify-start mb-6" ref={eyebrowRef}>
+            <span
+              className="inline-block font-bold uppercase tracking-[0.1em] rounded-full"
+              style={{ fontSize: "11px", color: "#ffffff", backgroundColor: "transparent", border: "1px solid rgba(255,255,255,0.45)", padding: "5px 16px" }}
+            >
+              Our Guarantee
+            </span>
+          </div>
+
+          {/* Headline — "Your Money Back" gets the solid tag, inverted: white pill, navy text */}
+          <h2
+            ref={headlineRef}
+            className="font-extrabold"
+            style={{ fontFamily: "'Inter', sans-serif", fontSize: "clamp(30px, 4.2vw, 50px)", letterSpacing: "-0.04em", lineHeight: 1.1, color: "#ffffff" }}
+          >
+            1M+ Views in 90 Days. Or{" "}
+            <Highlight variant="solid" style={{ backgroundColor: "#ffffff", color: "#12377A" }}>
+              Your Money Back
+            </Highlight>
+            .
+          </h2>
+
+          {/* Body — white at ~80% opacity, comfortable reading width */}
+          <p
+            ref={bodyRef}
+            className="font-sans"
+            style={{ color: "rgba(255,255,255,0.8)", fontSize: "clamp(15px, 1.6vw, 18px)", lineHeight: 1.6, marginTop: "24px", maxWidth: "480px" }}
+          >
+            Not a marketing line, a commitment. If we don&#39;t hit it, you get your money back. Tracked together every month, so you always know exactly where you stand.
+          </p>
+
+        </div>
+
+        {/* Right column — the full guarantee mechanic as a stacked tone-on-tone
+            watermark: 1M views → 90 days, same white-at-low-opacity-over-navy
+            technique as the footer wordmark. Two numerals, two small labels,
+            the word "In" as the connector — no arrow, no checkmark, no icons. */}
+        <div className="hidden lg:flex lg:w-[45%] items-center justify-center" ref={numeralRef}>
+          <div className="flex flex-col items-center">
+
+            {/* 1M — first in the sequence. Label sits in normal flow below the
+                numeral's own box, not absolutely overlaid, so it never crosses
+                the letterforms. Same low opacity as the numeral — one layer. */}
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end" }}>
+              <span
+                className="font-extrabold"
+                style={{
+                  fontFamily: "'Inter', sans-serif",
+                  fontSize: "clamp(105px, 13vw, 195px)",
+                  letterSpacing: "-0.05em",
+                  lineHeight: 0.85,
+                  color: "rgba(255,255,255,0.14)",
+                  display: "block",
+                }}
+              >
+                1M
+              </span>
+              <span
+                className="font-extrabold"
+                style={{
+                  fontFamily: "'Inter', sans-serif",
+                  fontSize: "clamp(13px, 1.4vw, 18px)",
+                  letterSpacing: "0.18em",
+                  color: "rgba(255,255,255,0.14)",
+                  marginTop: "10px",
+                }}
+              >
+                VIEWS
+              </span>
+            </div>
+
+            {/* Connector — "IN", same tone-on-tone opacity as the rest of the
+                watermark, its own space so it never crowds either numeral */}
+            <span
+              className="font-extrabold"
+              style={{
+                fontFamily: "'Inter', sans-serif",
+                fontSize: "clamp(13px, 1.4vw, 18px)",
+                letterSpacing: "0.18em",
+                color: "rgba(255,255,255,0.14)",
+                margin: "18px 0",
+              }}
+            >
+              IN
+            </span>
+
+            {/* 90 — second in the sequence */}
+            <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end" }}>
+              <span
+                className="font-extrabold"
+                style={{
+                  fontFamily: "'Inter', sans-serif",
+                  fontSize: "clamp(105px, 13vw, 195px)",
+                  letterSpacing: "-0.05em",
+                  lineHeight: 0.85,
+                  color: "rgba(255,255,255,0.14)",
+                  display: "block",
+                }}
+              >
+                90
+              </span>
+              <span
+                className="font-extrabold"
+                style={{
+                  fontFamily: "'Inter', sans-serif",
+                  fontSize: "clamp(13px, 1.4vw, 18px)",
+                  letterSpacing: "0.18em",
+                  color: "rgba(255,255,255,0.14)",
+                  marginTop: "10px",
+                }}
+              >
+                DAYS
+              </span>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+  );
+}
+
+/* ─────────────────────────────────────────────
    Section 7 — Final CTA
    Deep navy block, rounded top corners, oversized
    cropped wordmark at the bottom.
@@ -1080,8 +1247,8 @@ export default function App() {
   // Hero — plays once on load
   const heroLine1Ref = useRef<HTMLSpanElement>(null);
   const heroLine2Ref = useRef<HTMLSpanElement>(null);
-  const heroGuaranteedRef = useRef<HTMLSpanElement>(null);
-  const heroMoneyBackRef = useRef<HTMLDivElement>(null);
+  const heroLine3Ref = useRef<HTMLSpanElement>(null);
+  const heroRevenueTagRef = useRef<HTMLSpanElement>(null);
   const heroTaglineRef = useRef<HTMLParagraphElement>(null);
   const heroCtaRef = useRef<HTMLDivElement>(null);
   const heroSocialProofRef = useRef<HTMLDivElement>(null);
@@ -1110,13 +1277,14 @@ export default function App() {
       heroTl
         .from(heroLine1Ref.current, { opacity: 0, y: 24, duration: DURATION })
         .from(heroLine2Ref.current, { opacity: 0, y: 24, duration: DURATION }, "-=0.45")
+        .from(heroLine3Ref.current, { opacity: 0, y: 24, duration: DURATION }, "-=0.45")
         .fromTo(
-          heroGuaranteedRef.current,
+          heroRevenueTagRef.current,
           { scale: 0.9 },
           { scale: 1.05, duration: 0.22, ease: EASE }
         )
-        .to(heroGuaranteedRef.current, { scale: 1, duration: 0.18, ease: EASE })
-        .from([heroMoneyBackRef.current, heroTaglineRef.current], { opacity: 0, y: 16, duration: 0.6 }, "-=0.05")
+        .to(heroRevenueTagRef.current, { scale: 1, duration: 0.18, ease: EASE })
+        .from(heroTaglineRef.current, { opacity: 0, y: 16, duration: 0.6 }, "-=0.05")
         .from(heroCtaRef.current, { opacity: 0, y: 16, duration: 0.6 }, "-=0.35")
         .from(heroSocialProofRef.current, { opacity: 0, y: 16, duration: 0.6 }, "-=0.35");
 
@@ -1235,46 +1403,27 @@ export default function App() {
             free to shrink on narrow ones, so the headline never forces a
             horizontal scroll. sm and up is untouched. */}
         <h1
-          className="font-extrabold text-foreground mb-4 sm:mb-5 text-[clamp(23px,7.4vw,28px)] sm:text-[clamp(28px,5.5vw,66px)]"
+          className="font-extrabold text-foreground mb-6 sm:mb-7 text-[clamp(23px,7.4vw,28px)] sm:text-[clamp(28px,5.5vw,66px)]"
           style={{ fontFamily: "'Inter', sans-serif", letterSpacing: "-0.04em", lineHeight: 1.1 }}
         >
-          <span className="block" ref={heroLine1Ref}>
-            {/* 1 Million carries the emphasis the long number used to get from its
-                sheer length — sized in em so it tracks the headline's clamp. */}
-            <span style={{ color: "#1A56DB", fontSize: "1.15em", letterSpacing: "-0.045em" }}>
-              1 Million
-            </span>{" "}
-            Views{" "}
-            <span ref={heroGuaranteedRef} style={{ display: "inline-block" }}>
-              <Highlight variant="solid">Guaranteed</Highlight>
+          <span className="block" ref={heroLine1Ref}>More Views.</span>
+          <span className="block" ref={heroLine2Ref}>More Leads.</span>
+          <span className="block" ref={heroLine3Ref}>
+            <span ref={heroRevenueTagRef} style={{ display: "inline-block" }}>
+              <Highlight variant="solid">More Revenue.</Highlight>
             </span>
           </span>
-          <span className="block" ref={heroLine2Ref}>in 90 Days.</span>
         </h1>
-
-        {/* Sub-headline — plain grey text, money emoji accents the one word that matters */}
-        <div className="flex justify-center mb-4 sm:mb-5" ref={heroMoneyBackRef}>
-          <p
-            className="font-sans font-bold"
-            style={{
-              color: "#9CA3AF",
-              fontSize: "clamp(15px, 1.8vw, 22px)",
-              letterSpacing: "-0.01em",
-              lineHeight: 1.3,
-            }}
-          >
-            Or Your Money Back.
-          </p>
-        </div>
 
         {/* nowrap only from sm up — on a phone the single line was wider than
             the viewport, and was what forced the page to scroll sideways. */}
         <p
           ref={heroTaglineRef}
-          className="text-muted-foreground font-normal mb-7 sm:mb-10 mx-auto leading-relaxed whitespace-normal sm:whitespace-nowrap"
-          style={{ fontSize: "clamp(13px, 1.4vw, 17px)" }}
+          className="text-muted-foreground font-normal mb-7 sm:mb-10 mx-auto leading-relaxed whitespace-normal"
+          style={{ fontSize: "clamp(13px, 1.4vw, 17px)", maxWidth: "640px" }}
         >
-          The most <Highlight>measurable</Highlight> guarantee in content marketing.
+          Views are the start. We guide you through the rest, turning attention into leads, and{" "}
+          <Highlight>leads into revenue</Highlight>.
         </p>
 
         {/* Primary CTA — same button system as the closing CTA in Section 7,
@@ -1705,6 +1854,9 @@ export default function App() {
 
       {/* ── Section 6: FAQ ── */}
       <Section6FAQ />
+
+      {/* ── Section 6B: The Guarantee ── */}
+      <SectionGuarantee />
 
       {/* ── Section 7: Final CTA ── */}
       <Section7 />
