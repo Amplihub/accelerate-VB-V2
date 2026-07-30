@@ -1146,6 +1146,7 @@ export default function App() {
   const heroLine1Ref = useRef<HTMLSpanElement>(null);
   const heroLine3Ref = useRef<HTMLSpanElement>(null);
   const heroRevenueTagRef = useRef<HTMLSpanElement>(null);
+  const heroVslRef = useRef<HTMLDivElement>(null);
   const heroCtaRef = useRef<HTMLDivElement>(null);
   const heroSocialProofRef = useRef<HTMLDivElement>(null);
 
@@ -1178,7 +1179,8 @@ export default function App() {
           { scale: 1.05, duration: 0.22, ease: EASE }
         )
         .to(heroRevenueTagRef.current, { scale: 1, duration: 0.18, ease: EASE })
-        .from(heroCtaRef.current, { opacity: 0, y: 16, duration: 0.6 }, "-=0.05")
+        .from(heroVslRef.current, { opacity: 0, y: 16, duration: 0.6 }, "-=0.1")
+        .from(heroCtaRef.current, { opacity: 0, y: 16, duration: 0.6 }, "-=0.35")
         .from(heroSocialProofRef.current, { opacity: 0, y: 16, duration: 0.6 }, "-=0.35");
 
       // ── Process — each step slides in from its own zigzag side; connector draws after ──
@@ -1325,6 +1327,45 @@ export default function App() {
             </span>
           </span>
         </h1>
+
+        {/* VSL Placeholder Block */}
+        <div className="flex justify-center w-full mb-6 sm:mb-8" ref={heroVslRef}>
+          <div
+            className="relative flex flex-col items-center justify-center w-full max-w-[700px] aspect-video"
+            style={{
+              backgroundColor: "#1a1a1a",
+              borderRadius: "16px",
+              boxShadow: "0 4px 20px rgba(0,0,0,0.15)",
+            }}
+          >
+            {/* Play Button */}
+            <div
+              className="flex items-center justify-center rounded-full"
+              style={{
+                width: "70px",
+                height: "70px",
+                backgroundColor: "#1A56DB",
+                boxShadow: "0 8px 20px rgba(26,86,219,0.4)",
+              }}
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" style={{ marginLeft: "4px" }}>
+                <path d="M5 3L19 12L5 21V3Z" fill="#ffffff" />
+              </svg>
+            </div>
+
+            {/* Placeholder Label Text */}
+            <span
+              className="absolute bottom-4 text-center font-sans font-medium"
+              style={{
+                color: "#9CA3AF",
+                fontSize: "13px",
+                letterSpacing: "0.02em",
+              }}
+            >
+              Watch How It Works
+            </span>
+          </div>
+        </div>
 
         {/* Primary CTA — same button system as the closing CTA in Section 7,
             wired to the booking section rather than being a dead button. */}
