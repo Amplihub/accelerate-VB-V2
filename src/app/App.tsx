@@ -2,6 +2,8 @@ import React, { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import PillNav from "./components/PillNav";
+import ChatProof from "./components/ChatProof";
+import Testimonials from "./components/Testimonials";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "./components/ui/accordion";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -542,7 +544,7 @@ const FAQS = [
 
 function Section6FAQ() {
   return (
-    <section id="faq" className="border-t border-border bg-[#FAFAFA]" style={{ scrollMarginTop: 110 }}>
+    <section id="faq" className="border-t border-border bg-[#EAF1FF]" style={{ scrollMarginTop: 110 }}>
       <div className="max-w-[800px] mx-auto pt-[80px] pb-[80px] px-6">
         
         {/* Eyebrow */}
@@ -1694,6 +1696,12 @@ export default function App() {
         {/* ── Section 5B: Full Case Study Library ── */}
         <Section5B />
       </div>
+
+      {/* ── Section 5C: Chat Proof — "The Receipts" screenshot wall ── */}
+      <ChatProof />
+
+      {/* ── Section 5D: Testimonials — video carousel + written reviews ── */}
+      <Testimonials />
 
       {/* ── Section 6: FAQ ── */}
       <Section6FAQ />
