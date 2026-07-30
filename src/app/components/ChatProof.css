@@ -1,0 +1,76 @@
+/* ─────────────────────────────────────────────────────────────────
+   Chat Proof — "The Receipts"
+
+   One staged screenshot, not a grid. The only thing borrowed from
+   the dark reference is the edge-fade technique itself (also used on
+   the video testimonial carousel) — applied here as a mask on the
+   image so its edges dissolve into the page rather than ending in a
+   hard rectangular cutoff. Everything else — the light background,
+   the soft blue glow behind it — is native to this theme.
+───────────────────────────────────────────────────────────────── */
+
+.cpf-stage {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  padding: 48px 0 32px;
+}
+
+/* Centerpiece sizing — no width cap of its own beyond the section's
+   own max-w-[1200px] px-6 column, so it reads as close to full-width
+   as that column allows rather than a modest inset panel. */
+.cpf-frame {
+  position: relative;
+  width: 100%;
+}
+
+/* Soft radial glow behind the image — bigger than the frame itself so
+   it reads as ambient light, not a bounded panel. A blurred rectangle
+   here would just be a second hard edge behind the first; a glow has
+   none to begin with. Strengthened over the first pass so the image
+   reads as lit/spotlighted rather than sitting on a plain background. */
+.cpf-glow {
+  position: absolute;
+  inset: -20% -14%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(26, 86, 219, 0.34) 0%,
+    rgba(26, 86, 219, 0.16) 42%,
+    rgba(26, 86, 219, 0) 78%
+  );
+  z-index: 0;
+  pointer-events: none;
+}
+
+.cpf-image {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 18px;
+  transform-origin: center;
+  /* Vignette mask — center stays fully opaque, edges dissolve to
+     transparent so the glow shows through instead of a hard crop.
+     Unchanged from the first pass — this is the one thing kept
+     exactly as-is per the brief. */
+  -webkit-mask-image: radial-gradient(ellipse 78% 78% at 50% 50%, #000 56%, transparent 100%);
+  mask-image: radial-gradient(ellipse 78% 78% at 50% 50%, #000 56%, transparent 100%);
+  /* drop-shadow (not box-shadow) so the shadow follows the masked
+     alpha shape — a box-shadow would draw a hard rectangle behind a
+     softly-faded image, which defeats the point of the mask. Deeper
+     and softer than the first pass for more lift off the page. */
+  filter: drop-shadow(0 32px 64px rgba(17, 17, 17, 0.20)) drop-shadow(0 8px 18px rgba(17, 17, 17, 0.10));
+  /* Quiet breathing pulse — barely perceptible, just enough that the
+     section doesn't read as a static screenshot. */
+  animation: cpfBreathe 7s ease-in-out infinite;
+}
+
+@keyframes cpfBreathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.015); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cpf-image { animation: none; }
+}

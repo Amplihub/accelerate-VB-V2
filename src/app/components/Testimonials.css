@@ -1,0 +1,409 @@
+/* ─────────────────────────────────────────────────────────────────
+   Testimonials — video carousel + text carousel
+
+   Rebuilt from the source Swiper markup, restyled onto our light
+   theme. Nothing from the original survives visually: the dark
+   rgba(10,14,39,…) overlays, the white-glass active panel, the
+   dark gradient edge masks and the GHL default #004DDD accent are
+   all gone. Single accent is our brand blue #1A56DB.
+
+   Depth here works the same way as the case study wall (Section 5B):
+   the active card sits forward, everything else recedes on opacity.
+───────────────────────────────────────────────────────────────── */
+
+.acc-tst {
+  --acc-blue: #1a56db;
+  --acc-blue-tint: #eaf1ff;
+  --acc-blue-border: #b9cef6;
+  --acc-ink: #111111;
+  --acc-muted: #5b5f66;
+  --acc-hairline: #efefef;
+}
+
+/* Swiper ships its own :root-ish theme colour — neutralise it so no
+   default blue can leak in through any built-in element. */
+.acc-tst .swiper {
+  --swiper-theme-color: var(--acc-blue);
+  --swiper-navigation-color: var(--acc-blue);
+  --swiper-pagination-color: var(--acc-blue);
+}
+
+/* ── Part 1 — video carousel ──────────────────────────────────── */
+
+/* Soft edge fade + room for the arch.
+
+   The fade is a mask rather than overlay pseudo-elements: the section
+   background is flat #ffffff today, but a mask stays correct if that
+   ever changes, and it can't sit on top of the slides and swallow
+   clicks on the play buttons near the edges.
+
+   Vertical padding exists because Swiper's container crops with
+   overflow:hidden — without it the centre slide's scale-up and its
+   shadow would both be sliced off. Swiper subtracts horizontal
+   padding from its own width calculation, so only the vertical
+   values matter to layout here. */
+.acc-vt .swiper {
+  --acc-fade: 40px;
+  padding: 28px 0 38px;
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 var(--acc-fade),
+    #000 calc(100% - var(--acc-fade)),
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 var(--acc-fade),
+    #000 calc(100% - var(--acc-fade)),
+    transparent 100%
+  );
+}
+
+@media (min-width: 640px) {
+  .acc-vt .swiper { --acc-fade: 88px; }
+}
+
+@media (min-width: 1024px) {
+  .acc-vt .swiper { --acc-fade: 120px; }
+}
+
+/* Graduated arch — scale falls off with distance from centre, in three
+   steps: centre 1.08, immediate neighbours 0.95, everything further
+   out 0.88. Swiper only labels the active slide and its two
+   neighbours, so the base rule below *is* the outer tier.
+
+   Transform is layout-neutral, so slides keep sitting on the same
+   width + spaceBetween grid; only their painted size changes. The
+   0.55s duration matches the Swiper `speed`, so a slide grows into
+   centre as it travels rather than snapping once it arrives. */
+.acc-vt .swiper-slide {
+  width: 244px;
+  height: auto;
+  transform: scale(0.88);
+  /* Inactive slides dim slightly — replaces the source's dark
+     gradient masks over the outer slides. */
+  opacity: 0.66;
+  transition: opacity 0.35s ease, transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+
+.acc-vt .swiper-slide-prev,
+.acc-vt .swiper-slide-next {
+  transform: scale(0.95);
+}
+
+.acc-vt .swiper-slide-active {
+  transform: scale(1.08);
+  opacity: 1;
+}
+
+@media (min-width: 640px) {
+  .acc-vt .swiper-slide { width: 262px; }
+}
+
+@media (min-width: 1024px) {
+  .acc-vt .swiper-slide { width: 276px; }
+}
+
+.acc-vt-card {
+  background: #ffffff;
+  border: 1px solid var(--acc-hairline);
+  border-radius: 18px;
+  padding: 10px 10px 14px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Active card — subtle blue-tinted border + soft shadow, in place of
+   the source's white glass panel. */
+.acc-vt .swiper-slide-active .acc-vt-card {
+  border-color: var(--acc-blue-border);
+  box-shadow:
+    0 18px 42px -18px rgba(26, 86, 219, 0.34),
+    0 2px 6px rgba(17, 17, 17, 0.05);
+}
+
+.acc-vt-media {
+  position: relative;
+  aspect-ratio: 9 / 16;
+  border-radius: 12px;
+  overflow: hidden;
+  /* Same neutral placeholder as the case study wall's empty media
+     slots — shows through for the entries with no poster frame. */
+  background: linear-gradient(155deg, #f2f4f8 0%, #e5e9f0 100%);
+}
+
+.acc-vt-media video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Play button — white disc, brand blue glyph. */
+.acc-vt-play {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 52px;
+  height: 52px;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 6px 20px rgba(17, 17, 17, 0.18);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.acc-vt-play:hover {
+  background: #ffffff;
+  transform: translate(-50%, -50%) scale(1.07);
+}
+
+.acc-vt-play svg { margin-left: 3px; }
+
+/* Once a video is playing the native controls take over. */
+.acc-vt-card.is-playing .acc-vt-play {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.acc-vt-meta {
+  padding: 14px 6px 2px;
+}
+
+.acc-vt-name {
+  font-family: "Inter", sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+  color: var(--acc-ink);
+  margin: 0;
+}
+
+.acc-vt-role {
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--acc-muted);
+  margin: 5px 0 0;
+}
+
+/* ── Part 2 — text carousel ───────────────────────────────────── */
+
+/* No edge fade here — 1 / 2 / 3 slides per view means whole cards at
+   every breakpoint, so there is nothing cropped to feather. The
+   padding just keeps the hover shadow off the crop line. */
+.acc-tt .swiper {
+  padding-bottom: 14px;
+}
+
+.acc-tt .swiper-slide {
+  height: auto;
+}
+
+.acc-tt-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  border: 1px solid var(--acc-hairline);
+  border-radius: 16px;
+  padding: 24px 24px 22px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.acc-tt-card:hover {
+  border-color: #d8dce2;
+  box-shadow: 0 10px 26px -16px rgba(17, 17, 17, 0.2);
+}
+
+.acc-tt-quotemark {
+  display: block;
+  color: var(--acc-blue);
+}
+
+.acc-tt-title {
+  font-family: "Inter", sans-serif;
+  font-weight: 700;
+  font-size: 17px;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+  color: var(--acc-ink);
+  margin: 14px 0 10px;
+}
+
+.acc-tt-quote {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--acc-muted);
+  margin: 0;
+  flex: 1;
+}
+
+.acc-tt-person {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid #f0f1f3;
+}
+
+/* Rounded square, ~12px radius — same card language as the rest of
+   the page, not the source's circular crop. */
+.acc-tt-photo {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  object-fit: cover;
+  background: #eef1f6;
+}
+
+.acc-tt-photo--initials {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--acc-blue-tint);
+  color: var(--acc-blue);
+  font-family: "Inter", sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: -0.01em;
+}
+
+.acc-tt-name {
+  font-family: "Inter", sans-serif;
+  font-weight: 700;
+  font-size: 13.5px;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+  color: var(--acc-ink);
+  margin: 0;
+}
+
+.acc-tt-company {
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--acc-muted);
+  margin: 4px 0 0;
+}
+
+/* ── Shared controls ──────────────────────────────────────────── */
+
+/* Positioning context for the video carousel's overlaid nav arrows. */
+.acc-carousel {
+  position: relative;
+}
+
+/* Text carousel only — its arrows sit in a plain row below the cards
+   rather than overlaid on the carousel's edges (an overlay there would
+   sit on top of the quote copy, since every card is full-height). */
+.acc-ctrls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 8px;
+}
+
+.acc-arrow {
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+  border-radius: 999px;
+  background: #ffffff;
+  border: 1px solid #dcdcdc;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  cursor: pointer;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.acc-arrow:hover {
+  border-color: var(--acc-blue);
+}
+
+/* Sits over the outermost cards, so it carries its own drop shadow to
+   stay legible against whatever is behind it. translateY is baked into
+   both states — a hover rule that forgot it would drop the button. */
+.acc-arrow--nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 5;
+  box-shadow: 0 3px 12px rgba(17, 17, 17, 0.13);
+}
+
+.acc-arrow--nav:hover {
+  box-shadow: 0 3px 14px rgba(26, 86, 219, 0.26);
+}
+
+.acc-arrow--prev { left: 2px; }
+.acc-arrow--next { right: 2px; }
+
+@media (min-width: 640px) {
+  .acc-arrow--prev { left: 10px; }
+  .acc-arrow--next { right: 10px; }
+}
+
+/* Video carousel is swipeable on touch — the overlaid arrows are redundant
+   clutter there and sit awkwardly close to the edge cards on a narrow
+   screen. Swap them for a small dot row instead, which also gives a
+   position/progress cue the removed arrows didn't. */
+@media (max-width: 639px) {
+  .acc-vt .acc-arrow--nav {
+    display: none;
+  }
+
+  .acc-vt .swiper-pagination {
+    position: static;
+    margin-top: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .acc-vt .swiper-pagination-bullet {
+    width: 6px;
+    height: 6px;
+    margin: 0 4px;
+    background: var(--acc-blue-border);
+    opacity: 1;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+  }
+
+  .acc-vt .swiper-pagination-bullet-active {
+    background: var(--acc-blue);
+    transform: scale(1.25);
+  }
+}
+
+@media (min-width: 640px) {
+  .acc-vt .swiper-pagination {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .acc-vt .swiper-slide,
+  .acc-vt-card,
+  .acc-tt-card,
+  .acc-vt-play,
+  .acc-arrow {
+    transition: none;
+  }
+}

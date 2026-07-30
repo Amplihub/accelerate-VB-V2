@@ -1,6 +1,9 @@
 # Dependencies
 node_modules/
 
+# Reference design export (not part of the site)
+Source/
+
 # Build output
 dist/
 dist-ssr/
