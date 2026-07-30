@@ -1,10 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay } from "swiper/modules";
+import { Autoplay, Pagination } from "swiper/modules";
 import type { Swiper as SwiperClass } from "swiper";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "swiper/css";
+import "swiper/css/pagination";
 import "./Testimonials.css";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -59,6 +60,12 @@ const VIDEO_TESTIMONIALS: VideoTestimonial[] = [
     poster: "https://storage.googleapis.com/msgsndr/0JdcK8nm75u9Gb745fHy/media/68e69669d855cfce7f3078e8.png",
   },
   {
+    name: "Maxine Horne",
+    role: "CEO, Vita Group",
+    video: "https://storage.googleapis.com/msgsndr/0JdcK8nm75u9Gb745fHy/media/697b0f891543e6a3417649a0.mp4",
+    poster: "https://storage.googleapis.com/msgsndr/0JdcK8nm75u9Gb745fHy/media/697b28f204b05b401843bd7b.png",
+  },
+  {
     name: "Shaveen Bandaranayake",
     role: "Founder, TheLawSimplified",
     video: "https://storage.googleapis.com/msgsndr/0JdcK8nm75u9Gb745fHy/media/69217880a6ad080aaed33340.mp4",
@@ -69,12 +76,6 @@ const VIDEO_TESTIMONIALS: VideoTestimonial[] = [
     role: "CEO, Concolabs",
     video: "https://storage.googleapis.com/msgsndr/0JdcK8nm75u9Gb745fHy/media/68e73867468f55d622b095cc.mp4",
     poster: "https://storage.googleapis.com/msgsndr/0JdcK8nm75u9Gb745fHy/media/68dfcb0d94a323597bb79f5e.png",
-  },
-  {
-    name: "Maxine Horne",
-    role: "CEO, Vita Group",
-    video: "https://storage.googleapis.com/msgsndr/0JdcK8nm75u9Gb745fHy/media/697b0f891543e6a3417649a0.mp4",
-    poster: "https://storage.googleapis.com/msgsndr/0JdcK8nm75u9Gb745fHy/media/697b28f204b05b401843bd7b.png",
   },
   {
     name: "Kaushi Gunasekera",
@@ -276,7 +277,7 @@ function VideoCarousel() {
     <div className="acc-vt">
       <div className="acc-carousel">
         <Swiper
-          modules={[Autoplay]}
+          modules={[Autoplay, Pagination]}
           onSwiper={(swiper) => { swiperRef.current = swiper; }}
           onSlideChange={handleSlideChange}
           slidesPerView="auto"
@@ -286,6 +287,7 @@ function VideoCarousel() {
           speed={550}
           autoplay={prefersReducedMotion() ? false : { delay: 4200, disableOnInteraction: false }}
           watchSlidesProgress
+          pagination={{ clickable: true }}
         >
           {VIDEO_TESTIMONIALS.map((item, i) => (
             <SwiperSlide key={item.name}>
@@ -423,15 +425,15 @@ export default function Testimonials() {
   return (
     <section
       id="testimonials"
-      className="acc-tst border-t border-border"
+      className="acc-tst"
       style={{ backgroundColor: "#ffffff", scrollMarginTop: 110 }}
     >
-      <div className="max-w-[1200px] mx-auto pt-[80px] pb-[80px] px-6">
+      <div className="max-w-[1200px] mx-auto pt-1 md:pt-2 pb-8 md:pb-12 px-6">
 
         {/* Header — same eyebrow pill + Inter display headline as every
             other section on the page. */}
         <div ref={headerRef}>
-          <div className="flex justify-center mb-5">
+          <div className="flex justify-center mb-2">
             <span
               className="inline-block font-bold uppercase tracking-[0.1em] text-[#1A56DB] rounded-full"
               style={{ fontSize: "11px", backgroundColor: "#EAF1FF", padding: "5px 16px" }}
@@ -457,12 +459,12 @@ export default function Testimonials() {
             mt is smaller than the other blocks on purpose: the video
             swiper carries 28px of its own top padding to give the
             arch's centre slide room to scale up. */}
-        <div ref={videoBlockRef} className="mt-8">
+        <div ref={videoBlockRef} className="mt-6">
           <VideoCarousel />
         </div>
 
         {/* ── Part 2 — written reviews, same section ── */}
-        <div ref={textBlockRef} className="mt-14">
+        <div ref={textBlockRef} className="mt-8 md:mt-10">
           <TextCarousel />
         </div>
 

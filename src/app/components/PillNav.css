@@ -67,7 +67,8 @@
   -webkit-tap-highlight-color: transparent;
 }
 
-/* The hover-circle: still uses base (blue) */
+/* The hover-circle: still uses base (blue). Retracted by default; the
+   transition here governs it sliding back OUT (on mouseleave / class removal). */
 .pill-item__bg {
   position: absolute;
   inset: 0;
@@ -75,15 +76,32 @@
   background-color: var(--nav-base-color, #1A56DB);
   transform: translateY(110%);
   pointer-events: none;
+  transition: transform 0.22s cubic-bezier(0.55, 0.055, 0.675, 0.19);
 }
 
 .pill-item__text {
   position: relative;
   z-index: 1;
   color: var(--nav-pill-text-color, #111111);
-  transition: color 0.22s ease;
+  transition: color 0.18s ease;
 }
 
+/* Hover fill lives entirely in CSS, and only for input that can genuinely
+   "hover" — a fine-pointer mouse. Touchscreens don't match this query, so a
+   tap can never engage (or get stuck in) the fill; there's no JS mouseenter/
+   mouseleave pair to desync from real cursor movement in the first place. */
+@media (hover: hover) and (pointer: fine) {
+  .pill-item:hover .pill-item__bg {
+    transform: translateY(0%);
+    transition: transform 0.28s cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+
+  .pill-item:hover .pill-item__text {
+    color: var(--nav-hovered-text-color, #ffffff);
+  }
+}
+
+/* Active/current-page state — independent of hover, always CSS-class-driven. */
 .pill-item.is-active .pill-item__bg {
   transform: translateY(0%);
 }
@@ -129,38 +147,145 @@
   transform: translateY(-7px) rotate(-45deg);
 }
 
-/* ── Mobile dropdown — white panel, consistent with bar ──
-   Sits above .pill-nav (z-index 1000). It needs its own stacking order because
-   it's a sibling of <nav>, not a child: without it, any page element GSAP has
-   put a transform on (e.g. the hero's "Guaranteed" span) creates a stacking
-   context that paints straight through the panel.
-   Background is a literal white, not var(--nav-pill-color) — the custom props
-   are set on <nav>, which this element is not inside of. */
-.pill-nav__mobile-dropdown {
-  position: fixed;
-  top: 88px;
-  left: 50%;
-  z-index: 1100;
-  transform: translateX(-50%);
-  width: calc(100vw - 32px);
-  max-width: 360px;
-  border-radius: 20px;
-  background-color: #ffffff;
-  border: 1px solid #E7E7E7;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-  padding: 8px;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  overflow: hidden;
-  transform-origin: top center;
+/* ── Backdrop — blurs the page behind the open mobile dropdown ──
+   Sits between the nav (1000) and the dropdown panel (1100) in stacking
+   order. Fades in on mount; no exit transition since the element is
+   removed from the DOM the instant the menu closes. */
+@keyframes pillNavBackdropIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
-.pill-nav__mobile-dropdown .pill-item {
-  width: 100%;
-  justify-content: flex-start;
-  padding: 12px 16px;
-  font-size: 13px;
+.pill-nav__backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1050;
+  background: rgba(255, 255, 255, 0.35);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  animation: pillNavBackdropIn 0.25s ease both;
+}
+
+/* ── Mobile drawer — slides in from the right, full-height ──
+   Sits above .pill-nav (1000) and the backdrop (1050). Its own stacking
+   order for the same reason the old dropdown needed one: it's a sibling
+   of <nav>, not a child, so a transformed page element elsewhere can't
+   paint through it. Positioned off-screen by GSAP on mount (x: 100%);
+   the CSS here only defines the resting look. */
+.pill-nav__drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1100;
+  width: min(82vw, 340px);
+  background-color: #ffffff;
+  border-radius: 24px 0 0 24px;
+  box-shadow: -16px 0 48px rgba(17, 17, 17, 0.16);
+  display: flex;
+  flex-direction: column;
+  padding: 22px 22px 28px;
+  overflow-y: auto;
+}
+
+.pill-nav__drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 36px;
+  flex-shrink: 0;
+}
+
+.pill-nav__drawer-logo {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid #E7E7E7;
+  padding: 7px;
+  object-fit: contain;
+  display: block;
+}
+
+.pill-nav__drawer-close {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  border: 1px solid #E7E7E7;
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+
+.pill-nav__drawer-close:active {
+  transform: scale(0.92);
+}
+
+.pill-nav__drawer-links {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
+.pill-nav__drawer-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 18px 2px;
+  border-bottom: 1px solid #F0F1F3;
+  text-decoration: none;
+  font-family: inherit;
+  font-weight: 800;
+  font-size: 22px;
+  letter-spacing: -0.02em;
+  color: #111111;
+  transition: color 0.15s ease;
+}
+
+.pill-nav__drawer-link:first-child {
+  padding-top: 2px;
+}
+
+.pill-nav__drawer-link:active,
+.pill-nav__drawer-link.is-active {
+  color: #1A56DB;
+}
+
+.pill-nav__drawer-link-arrow {
+  flex-shrink: 0;
+  opacity: 0.3;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+.pill-nav__drawer-link:active .pill-nav__drawer-link-arrow {
+  transform: translateX(3px);
+  opacity: 1;
+}
+
+.pill-nav__drawer-cta {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 24px;
+  padding: 16px;
+  border-radius: 999px;
+  background-color: #1A56DB;
+  border: 1px solid #1540B0;
+  color: #ffffff;
+  text-decoration: none;
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: -0.01em;
+  box-shadow: 0 10px 28px rgba(26, 86, 219, 0.28);
 }
 
 @media (max-width: 640px) {
