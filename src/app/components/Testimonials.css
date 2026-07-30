@@ -360,6 +360,44 @@
   .acc-arrow--next { right: 10px; }
 }
 
+/* Video carousel is swipeable on touch — the overlaid arrows are redundant
+   clutter there and sit awkwardly close to the edge cards on a narrow
+   screen. Swap them for a small dot row instead, which also gives a
+   position/progress cue the removed arrows didn't. */
+@media (max-width: 639px) {
+  .acc-vt .acc-arrow--nav {
+    display: none;
+  }
+
+  .acc-vt .swiper-pagination {
+    position: static;
+    margin-top: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .acc-vt .swiper-pagination-bullet {
+    width: 6px;
+    height: 6px;
+    margin: 0 4px;
+    background: var(--acc-blue-border);
+    opacity: 1;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+  }
+
+  .acc-vt .swiper-pagination-bullet-active {
+    background: var(--acc-blue);
+    transform: scale(1.25);
+  }
+}
+
+@media (min-width: 640px) {
+  .acc-vt .swiper-pagination {
+    display: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .acc-vt .swiper-slide,
   .acc-vt-card,
