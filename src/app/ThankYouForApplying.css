@@ -1,0 +1,105 @@
+/* ─────────────────────────────────────────────
+   Thank you for applying — one card, centred on
+   the same brand-blue field the /apply stage
+   uses, here running full bleed.
+───────────────────────────────────────────── */
+
+.tya {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 32px 20px;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  background:
+    radial-gradient(ellipse 65% 55% at 14% 10%, rgba(11, 35, 80, 0.85) 0%, rgba(11, 35, 80, 0) 62%),
+    radial-gradient(ellipse 60% 55% at 88% 82%, rgba(46, 168, 240, 0.55) 0%, rgba(46, 168, 240, 0) 58%),
+    linear-gradient(138deg, #0b2350 0%, #12377a 40%, #1a4fc4 100%);
+}
+
+.tya-card {
+  width: 100%;
+  max-width: 620px;
+  padding: 44px 32px 36px;
+  text-align: center;
+  background: #ffffff;
+  border-radius: 22px;
+  box-shadow: 0 24px 60px rgba(6, 22, 52, 0.28);
+}
+
+.tya-headline {
+  margin: 0;
+  font-family: "Inter", "Plus Jakarta Sans", sans-serif;
+  font-weight: 800;
+  font-size: clamp(27px, 4.6vw, 42px);
+  letter-spacing: -0.04em;
+  line-height: 1.1;
+  color: #111111;
+}
+
+/* The quieter cousin of the funnel's marker — colour only, no fill. This is
+   the word that says "come back", so it carries the emphasis. */
+.tya-yet {
+  color: #1a56db;
+}
+
+.tya-body {
+  max-width: 480px;
+  margin: 20px auto 0;
+  font-size: 15px;
+  line-height: 1.65;
+  color: #5b5f66;
+}
+
+/* Softer than the funnel's primary CTA — this page shouldn't push. */
+.tya-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 28px;
+  padding: 11px 22px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #1a56db;
+  background: #eaf1ff;
+  border-radius: 999px;
+  text-decoration: none;
+  transition: background-color 0.18s ease, transform 0.18s ease;
+}
+
+.tya-cta:hover {
+  background: #dbe7ff;
+  transform: translateY(-1px);
+}
+
+.tya-cta:focus-visible {
+  outline: 2px solid #1a56db;
+  outline-offset: 3px;
+}
+
+.tya-logo {
+  margin-top: 34px;
+  padding-top: 26px;
+  border-top: 1px solid #f0f1f3;
+}
+
+/* Source lockup is white art — darken it for the white card. */
+.tya-logo img {
+  width: 132px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  filter: brightness(0);
+}
+
+@media (min-width: 640px) {
+  .tya-card {
+    padding: 56px 56px 42px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tya-cta:hover {
+    transform: none;
+  }
+}

@@ -3,6 +3,7 @@ node_modules/
 
 # Reference design export (not part of the site)
 Source/
+Source(For copy changes)/
 
 # Build output
 dist/

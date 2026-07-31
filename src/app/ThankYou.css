@@ -1,0 +1,208 @@
+/* ─────────────────────────────────────────────
+   Thank you — centred single column. The video
+   is the widest thing on the page on purpose;
+   everything else is narrower so the eye lands
+   on it.
+───────────────────────────────────────────── */
+
+.ty {
+  position: relative;
+  min-height: 100vh;
+  background: #ffffff;
+  color: #111111;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  overflow-x: hidden;
+}
+
+/* Light-theme answer to the old page's blue glow. */
+.ty-wash {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1100px;
+  max-width: 160%;
+  height: 460px;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 60% 100% at 50% 0%,
+    rgba(26, 86, 219, 0.13) 0%,
+    rgba(26, 86, 219, 0.05) 45%,
+    rgba(255, 255, 255, 0) 72%
+  );
+}
+
+.ty-inner {
+  position: relative;
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 40px 20px 56px;
+  text-align: center;
+}
+
+.ty-logo {
+  display: block;
+  width: 158px;
+  margin: 0 auto 26px;
+}
+
+/* Source lockup is white art — darken it for the light page. */
+.ty-logo img {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: brightness(0);
+}
+
+.ty-headline {
+  font-family: "Inter", "Plus Jakarta Sans", sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1.08;
+  font-size: clamp(30px, 6vw, 50px);
+  margin: 0;
+}
+
+/* The funnel's marker, arriving on the brand name. */
+.ty-mark {
+  display: inline-block;
+  background: #1a56db;
+  color: #ffffff;
+  border-radius: 0.16em;
+  padding: 0.05em 0.24em;
+  line-height: 1;
+  vertical-align: -0.1em;
+}
+
+.ty-sub {
+  max-width: 520px;
+  margin: 16px auto 0;
+  font-size: 15.5px;
+  line-height: 1.6;
+  color: #5b5f66;
+}
+
+/* ── Video ──────────────────────────────────── */
+.ty-video {
+  position: relative;
+  margin-top: 32px;
+  aspect-ratio: 16 / 9;
+  border-radius: 18px;
+  overflow: hidden;
+  background: #0d1b33;
+  box-shadow: 0 18px 50px rgba(18, 55, 122, 0.18);
+}
+
+.ty-video video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.ty-video.is-playing video {
+  object-fit: contain;
+}
+
+/* Poster overlay — hands off to native controls on click. */
+.ty-video__play {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  width: 100%;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  font-family: inherit;
+  background: linear-gradient(
+    180deg,
+    rgba(13, 27, 51, 0.28) 0%,
+    rgba(13, 27, 51, 0.52) 100%
+  );
+  transition: background-color 0.2s ease;
+}
+
+.ty-video__play-ring {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 66px;
+  height: 66px;
+  padding-left: 4px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.26);
+  transition: transform 0.22s ease;
+}
+
+.ty-video__play:hover .ty-video__play-ring,
+.ty-video__play:focus-visible .ty-video__play-ring {
+  transform: scale(1.07);
+}
+
+.ty-video__play-label {
+  font-size: 13.5px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: #ffffff;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.4);
+}
+
+.ty-video__play:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: -4px;
+}
+
+/* ── Inbox note ─────────────────────────────── */
+.ty-inbox {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+  max-width: 620px;
+  margin: 26px auto 0;
+  padding: 15px 18px;
+  text-align: left;
+  border-radius: 14px;
+  background: #eaf1ff;
+}
+
+.ty-inbox svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.ty-inbox p {
+  margin: 0;
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: #12377a;
+}
+
+.ty-inbox strong {
+  font-weight: 700;
+}
+
+.ty a:focus-visible {
+  outline: 2px solid #1a56db;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+@media (min-width: 768px) {
+  .ty-inner {
+    padding: 56px 32px 64px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ty *,
+  .ty *::before,
+  .ty *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
