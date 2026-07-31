@@ -1,0 +1,346 @@
+/* ─────────────────────────────────────────────
+   Checkout — form, order summary, payment.
+   The split frame lives in
+   components/SplitLayout.css.
+───────────────────────────────────────────── */
+
+/* ── Risk reversal ──────────────────────────── */
+.chk-guarantee {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  margin-top: 20px;
+  padding: 13px 15px;
+  border-radius: 12px;
+  background: #eaf1ff;
+}
+
+.chk-guarantee svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.chk-guarantee p {
+  margin: 0;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: #12377a;
+}
+
+.chk-guarantee strong {
+  font-weight: 700;
+}
+
+/* ── Form ───────────────────────────────────── */
+.chk-form {
+  margin-top: 28px;
+}
+
+.chk-legend {
+  margin: 0 0 12px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: #9ca3af;
+}
+
+.chk-legend--spaced {
+  margin-top: 28px;
+}
+
+.chk-field {
+  margin-bottom: 14px;
+}
+
+.chk-field__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.chk-field__head label {
+  font-size: 13px;
+  font-weight: 700;
+  color: #111111;
+}
+
+.chk-field__req {
+  font-size: 11px;
+  color: #9ca3af;
+}
+
+.chk-field input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px 14px;
+  font-family: inherit;
+  font-size: 14px;
+  color: #111111;
+  background: #ffffff;
+  border: 1px solid #e2e5ea;
+  border-radius: 12px;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.chk-field input::placeholder {
+  color: #a9aeb6;
+}
+
+.chk-field input:hover {
+  border-color: #cfd5de;
+}
+
+.chk-field input:focus {
+  outline: none;
+  border-color: #1a56db;
+  box-shadow: 0 0 0 3px rgba(26, 86, 219, 0.14);
+}
+
+/* ── Order summary ──────────────────────────── */
+.chk-order {
+  border: 1px solid #e7e7e7;
+  border-radius: 14px;
+  background: #ffffff;
+  padding: 16px 16px 14px;
+  box-shadow: 0 2px 10px rgba(17, 17, 17, 0.04);
+}
+
+.chk-order__row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.chk-order__item {
+  min-width: 0;
+}
+
+.chk-order__name {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: #111111;
+}
+
+.chk-order__meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 7px 0 0;
+  font-size: 12px;
+  color: #5b5f66;
+}
+
+.chk-order__badge {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #1a56db;
+  background: #eaf1ff;
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+
+.chk-order__price {
+  margin: 0;
+  flex-shrink: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #111111;
+}
+
+.chk-order__sub {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid #f2f2f2;
+  font-size: 13px;
+  color: #5b5f66;
+}
+
+.chk-order__total {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 14px;
+  margin-top: 10px;
+  padding-top: 12px;
+  border-top: 1px solid #f2f2f2;
+}
+
+.chk-order__total-label {
+  font-size: 13px;
+  font-weight: 700;
+  color: #111111;
+}
+
+/* Same display type the landing page gives its headline stats — the total
+   is the most important number on this page. */
+.chk-order__total-value {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 5px;
+  font-family: "Inter", "Plus Jakarta Sans", sans-serif;
+  font-weight: 800;
+  font-size: 26px;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: #1a56db;
+}
+
+.chk-order__total-currency {
+  font-family: "Plus Jakarta Sans", sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: #9ca3af;
+}
+
+/* ── Card ───────────────────────────────────── */
+.chk-card {
+  border: 1px solid #e7e7e7;
+  border-radius: 14px;
+  background: #ffffff;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(17, 17, 17, 0.04);
+}
+
+.chk-card__mount {
+  padding: 16px;
+}
+
+/* Dev placeholder — replaced once the provider's element is mounted. */
+.chk-card__slot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 7px;
+  min-height: 168px;
+  padding: 26px 24px;
+  color: #1a56db;
+  background: repeating-linear-gradient(-45deg, #f7f9fe 0 12px, #ffffff 12px 24px);
+}
+
+.chk-card__slot-title {
+  margin: 3px 0 0;
+  font-weight: 700;
+  font-size: 13.5px;
+  color: #12377a;
+}
+
+.chk-card__slot-note {
+  margin: 0;
+  max-width: 290px;
+  font-size: 12px;
+  line-height: 1.55;
+  color: #5b5f66;
+}
+
+.chk-secure {
+  margin: 10px 0 0;
+  text-align: center;
+  font-size: 11.5px;
+  color: #9ca3af;
+}
+
+/* ── Consent ────────────────────────────────── */
+.chk-consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.chk-consent input {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  margin: 2px 0 0;
+  accent-color: #1a56db;
+  cursor: pointer;
+}
+
+.chk-consent label {
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: #5b5f66;
+}
+
+.chk-consent a {
+  color: #1a56db;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.chk-consent a:hover {
+  text-decoration: underline;
+}
+
+/* ── Buy button — same system as the landing page's CTA. ── */
+.chk-buy {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 20px;
+  padding: 10px;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.025em;
+  color: #ffffff;
+  background: #1a56db;
+  border: 1px solid #1540b0;
+  border-radius: 999px;
+  box-shadow: 0 10px 28px rgba(26, 86, 219, 0.28);
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.chk-buy:hover {
+  background: #1749c8;
+  transform: translateY(-2px);
+  box-shadow: 0 14px 34px rgba(26, 86, 219, 0.38);
+}
+
+.chk-buy:focus-visible {
+  outline: 2px solid #12377a;
+  outline-offset: 3px;
+}
+
+/* Ghost spacer matches the arrow so the label stays optically centred. */
+.chk-buy__spacer,
+.chk-buy__arrow {
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+}
+
+.chk-buy__label {
+  flex: 1;
+  text-align: center;
+}
+
+.chk-buy__arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.18);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chk-buy:hover {
+    transform: none;
+  }
+}

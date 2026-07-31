@@ -19,20 +19,24 @@ function prefersReducedMotion() {
 
 const AVATARS = [
   {
-    src: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=64&h=64&fit=crop&auto=format",
-    alt: "Client portrait",
+    src: "https://assets.cdn.filesafe.space/0JdcK8nm75u9Gb745fHy/media/69747054d4fb90fb5181ed9b.png",
+    alt: "Robert Herjavec",
+    zoom: "125%",
   },
   {
-    src: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=64&h=64&fit=crop&auto=format",
-    alt: "Client portrait",
+    src: "https://assets.cdn.filesafe.space/0JdcK8nm75u9Gb745fHy/media/6a2f6b7a585d2f7daeef8267.png",
+    alt: "Daniel Lubetzky",
+    zoom: "145%",
   },
   {
-    src: "https://images.unsplash.com/photo-1521146764736-56c929d59c83?w=64&h=64&fit=crop&auto=format",
-    alt: "Client portrait",
+    src: "https://assets.cdn.filesafe.space/0JdcK8nm75u9Gb745fHy/media/6974705459a77ba5a5a97be2.png",
+    alt: "Jane Lu",
+    zoom: "145%",
   },
   {
-    src: "https://images.unsplash.com/photo-1542909168-82c3e7fdca5c?w=64&h=64&fit=crop&auto=format",
-    alt: "Client portrait",
+    src: "https://assets.cdn.filesafe.space/0JdcK8nm75u9Gb745fHy/media/69747054eb392b1e0cfbbaa9.png",
+    alt: "Davie Fogarty",
+    zoom: "165%",
   },
 ];
 
@@ -172,42 +176,46 @@ const STATS = [
 // ⚠️ DEV NOTE: swap each niche label + photo for the real client name/logo before going live
 const CASE_STUDIES = [
   {
-    niche: "Real Estate / Buyers Agent",
-    avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&h=80&fit=crop&auto=format",
-    img: "https://images.unsplash.com/photo-1543525469-65b61cc2bc06?w=480&h=600&fit=crop&auto=format",
-    imgAlt: "Realtor filming a listing on a smartphone",
-    before: "No content system, relying entirely on referrals, inconsistent inbound.",
-    built: "Niche specific content format, ManyChat lead flow, CRM and nurture sequence.",
+    name: "Ali Truwit",
+    role: "Foundation",
+    avatar: "https://assets.cdn.filesafe.space/0JdcK8nm75u9Gb745fHy/media/6a6c5a02188345b27e47e2f8.png",
+    thumbnail: "https://assets.cdn.filesafe.space/0JdcK8nm75u9Gb745fHy/media/6a6c683e497cd89d24a06943.png",
+    videoUrl: "https://www.instagram.com/reel/DaDU2rKgmyu/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==",
+    before: "Instagram at 0 followers, no organic reach to support fundraising.",
+    built: "Organic content system built to drive views into donations (100% organic, no paid boost).",
     stats: [
-      { value: "250K+", label: "Views gained" },
-      { value: "45",    label: "Leads captured" },
-      { value: "$60K",  label: "4 clients · Revenue" },
+      { value: "24M+", label: "Views" },
+      { value: "89K+", label: "Followers" },
+      { value: "$1M+", label: "Raised" },
     ],
   },
   {
-    niche: "B2B Professional Services",
-    avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=80&h=80&fit=crop&auto=format",
-    img: "https://images.unsplash.com/photo-1590650153855-d9e808231d41?w=480&h=600&fit=crop&auto=format",
-    imgAlt: "Professional at laptop in a modern office",
-    before: "Posting occasionally with no strategy, zero leads from content.",
-    built: "Positioning and structured content, LinkedIn first distribution, lead capture and follow up system.",
+    name: "Robert Herjavec",
+    role: "Shark Tank",
+    avatar: "https://assets.cdn.filesafe.space/0JdcK8nm75u9Gb745fHy/media/69747054d4fb90fb5181ed9b.png",
+    thumbnail: "https://assets.cdn.filesafe.space/0JdcK8nm75u9Gb745fHy/media/6a6c683e188345b27e5896b6.png",
+    videoUrl: "https://www.instagram.com/reel/DLDJj27RnKp/",
+    // ⚠️ DEV NOTE — placeholder copy, no real before/built brief supplied for Robert yet. Swap before this ships.
+    before: "Sporadic personal content with no consistent posting strategy across platforms.",
+    built: "A structured personal brand content system built around his existing platform and audience.",
     stats: [
-      { value: "400K+", label: "Views gained" },
-      { value: "55",    label: "Leads captured" },
-      { value: "$140K", label: "7 clients · Revenue" },
+      { value: "1M+", label: "Followers" },
+      { value: "20M+", label: "Views" },
+      { value: "$10M+", label: "Revenue" },
     ],
   },
   {
-    niche: "Coaching / Consulting",
-    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&fit=crop&auto=format",
-    img: "https://images.unsplash.com/photo-1580894732444-8ecded7900cd?w=480&h=600&fit=crop&auto=format",
-    imgAlt: "Coach presenting in front of a whiteboard",
-    before: "Small following, no monetisation path from content.",
-    built: "Content system built around a signature framework, call funnel, nurture sequence.",
+    name: "Kaushi Gunasekera",
+    role: "Buyers Agent",
+    avatar: "https://assets.cdn.filesafe.space/0JdcK8nm75u9Gb745fHy/media/6a6c5a0232db2dd157264ef0.png",
+    thumbnail: "https://assets.cdn.filesafe.space/0JdcK8nm75u9Gb745fHy/media/6a6c683ecf81b06f0585a902.png",
+    videoUrl: "https://www.instagram.com/reel/DYL0yg2R_wf/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==",
+    before: "Relying on referrals, no structured content or lead system (300 views/reel before the shift).",
+    built: "Reactive content tied to real-time market news + a CRM pipeline built from scratch.",
     stats: [
-      { value: "300K+", label: "Views gained" },
-      { value: "30",    label: "Leads captured" },
-      { value: "$90K",  label: "10 clients · Revenue" },
+      { value: "500K+", label: "Views" },
+      { value: "10+", label: "Bookings" },
+      { value: "$65K+", label: "Revenue" },
     ],
   },
 ];
@@ -751,13 +759,11 @@ function Section7() {
           <div className="flex items-center justify-center gap-3" style={{ marginTop: "28px" }}>
             <div className="flex items-center shrink-0">
               {AVATARS.map((avatar, i) => (
-                <img
+                <div
                   key={i}
-                  src={avatar.src}
-                  alt={avatar.alt}
-                  width={36}
-                  height={36}
-                  className="rounded-full object-cover bg-[#e0e0e0]"
+                  role="img"
+                  aria-label={avatar.alt}
+                  className="rounded-full bg-[#e0e0e0]"
                   style={{
                     width: 36,
                     height: 36,
@@ -766,6 +772,10 @@ function Section7() {
                     zIndex: 10 - i,
                     border: "2px solid #ffffff",
                     boxShadow: "0 1px 4px rgba(0,0,0,0.14)",
+                    backgroundImage: `url(${avatar.src})`,
+                    backgroundSize: avatar.zoom,
+                    backgroundPosition: "center 15%",
+                    backgroundRepeat: "no-repeat",
                   }}
                 />
               ))}
@@ -783,9 +793,11 @@ function Section7() {
             style={{
               marginTop: "24px",
               display: "flex",
+              flexWrap: "wrap",
               alignItems: "center",
               justifyContent: "center",
-              gap: "14px",
+              rowGap: "8px",
+              columnGap: "14px",
               color: "#12377A",
               opacity: 0.55,
               fontSize: "12px",
@@ -802,6 +814,14 @@ function Section7() {
               <circle cx="4" cy="4" r="2" />
             </svg>
             <span className="font-sans">© {year} Accelerate. All rights reserved.</span>
+            <span aria-hidden="true">·</span>
+            <a href="/privacy-policy" className="font-sans hover:opacity-100 transition-opacity duration-150" style={{ color: "inherit" }}>
+              Privacy Policy
+            </a>
+            <span aria-hidden="true">·</span>
+            <a href="/terms-conditions" className="font-sans hover:opacity-100 transition-opacity duration-150" style={{ color: "inherit" }}>
+              Terms &amp; Conditions
+            </a>
           </div>
 
         </div>
@@ -901,10 +921,6 @@ function Section5A() {
   const trackRef = useRef<HTMLDivElement>(null);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-  const slide = (dir: 1 | -1) => {
-    trackRef.current?.scrollBy({ left: dir * 490, behavior: "smooth" });
-  };
-
   useEffect(() => {
     if (prefersReducedMotion()) return;
     const ctx = gsap.context(() => {
@@ -924,7 +940,7 @@ function Section5A() {
 
   return (
     <section id="case-studies" style={{ backgroundColor: "transparent", scrollMarginTop: 110 }}>
-      <div className="max-w-[1200px] mx-auto pt-1 md:pt-2 pb-4 md:pb-5">
+      <div className="max-w-[1440px] mx-auto pt-1 md:pt-2 pb-4 md:pb-5">
 
         {/* Eyebrow — outlined pill, matches reference "CUSTOMER REVIEWS" style */}
         <div className="flex justify-center mb-2 px-6">
@@ -944,142 +960,108 @@ function Section5A() {
           Real Campaigns, Real Growth
         </h2>
 
-        {/* ── Carousel track ── */}
-        <div className="relative">
-          {/* Left / right fade masks — desktop only. On mobile each slide already
-              fills the viewport edge-to-edge with matched gap/padding below, so
-              there's no adjacent card sliver for a fade to mask. */}
-          <div className="hidden sm:block pointer-events-none absolute left-0 top-0 bottom-0 w-12 z-10"
-            style={{ background: "linear-gradient(to right, #EAF1FF, transparent)" }} />
-          <div className="hidden sm:block pointer-events-none absolute right-0 top-0 bottom-0 w-16 z-10"
-            style={{ background: "linear-gradient(to left, #EAF1FF, transparent)" }} />
+        {/* ── Cards — all three shown at once, no carousel/scroll. ── */}
+        <div
+          ref={trackRef}
+          className="grid grid-cols-1 lg:grid-cols-3 gap-6 px-5 sm:px-8"
+        >
+          {CASE_STUDIES.map((cs, i) => (
+            <div
+              key={i}
+              ref={(el) => { cardRefs.current[i] = el; }}
+              className="flex flex-col sm:flex-row gap-3.5 w-full"
+            >
 
-          {/* Scrollable row — on mobile, gap and padding are equal (20px) so the
-              next slide's edge lands exactly at the viewport boundary, never peeking in. */}
-          <div
-            ref={trackRef}
-            className="flex gap-5 sm:gap-[14px] overflow-x-auto px-5 sm:px-6"
-            style={{
-              scrollbarWidth: "none",
-              msOverflowStyle: "none",
-              scrollSnapType: "x mandatory",
-              WebkitOverflowScrolling: "touch",
-            }}
-          >
-            {CASE_STUDIES.map((cs, i) => (
-              <div
-                key={i}
-                ref={(el) => { cardRefs.current[i] = el; }}
-                className="flex flex-col sm:flex-row gap-[14px] w-[calc(100vw-40px)] sm:w-auto shrink-0 snap-center sm:snap-start"
+              {/* ── Video thumbnail — portrait, links out to the Instagram reel. ── */}
+              <a
+                href={cs.videoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`Watch ${cs.name}'s reel on Instagram`}
+                className="group relative w-full aspect-[9/16] sm:w-[150px] sm:aspect-auto sm:h-[268px] shrink-0 overflow-hidden block bg-[#E5E9F0]"
+                style={{ borderRadius: "14px" }}
               >
-
-                {/* ── Image card — portrait aspect on mobile (these are vertical,
-                    TikTok-style videos; a landscape banner would stretch/misrepresent
-                    them), fixed portrait box on desktop unchanged. ── */}
+                <img
+                  src={cs.thumbnail}
+                  alt={`${cs.name}'s reel thumbnail`}
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
                 <div
-                  className="relative w-full aspect-[9/16] sm:w-[172px] sm:aspect-auto sm:h-[310px] shrink-0 overflow-hidden bg-[#D8D8D8]"
-                  style={{ borderRadius: "16px" }}
-                >
-                  <img
-                    src={cs.img}
-                    alt={cs.imgAlt}
-                    className="w-full h-full object-cover block"
-                  />
-                  {/* Top gradient + niche overlay text */}
-                  <div
-                    className="absolute inset-0"
-                    style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0) 55%)" }}
-                  />
-                  <p
-                    className="absolute top-4 left-4 right-4 text-white font-bold leading-snug"
-                    style={{ fontSize: "13px" }}
+                  className="absolute inset-0"
+                  style={{ background: "linear-gradient(to top, rgba(0,0,0,0.28) 0%, rgba(0,0,0,0) 45%)" }}
+                />
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <span
+                    className="flex items-center justify-center rounded-full bg-white group-hover:scale-105 transition-transform duration-200"
+                    style={{ width: 42, height: 42, boxShadow: "0 2px 10px rgba(17,17,17,0.14)" }}
                   >
-                    {cs.niche}
-                  </p>
+                    <svg width="14" height="16" viewBox="0 0 10 12" fill="none" style={{ marginLeft: 2 }}>
+                      <path d="M0.5 1.2v9.6L9 6 0.5 1.2Z" fill="#1A56DB" />
+                    </svg>
+                  </span>
                 </div>
+              </a>
 
-                {/* ── Quote card (wider, white) ── */}
-                <div
-                  className="w-full sm:w-[300px] sm:h-[310px] shrink-0 bg-white flex flex-col"
-                  style={{
-                    borderRadius: "16px",
-                    border: "1px solid #EFEFEF",
-                    padding: "22px 22px 20px",
-                  }}
-                >
-                  {/* Header row — circular avatar + niche label. The stat that used
-                      to sit here duplicated the bottom stat row; removed so that
-                      row stays the card's one clear payoff instead of a repeat. */}
-                  <div className="flex items-center gap-2.5 mb-4">
-                    <img
-                      src={cs.avatar}
-                      alt={cs.niche}
-                      className="shrink-0 rounded-full object-cover"
-                      style={{ width: 36, height: 36, border: "2px solid #fff", boxShadow: "0 1px 4px rgba(0,0,0,0.10)" }}
-                    />
-                    <p className="font-bold text-[#111111] leading-tight" style={{ fontSize: "13px" }}>
-                      {cs.niche}
+              {/* ── Info card ── */}
+              <div
+                className="w-full sm:h-[268px] min-w-0 bg-white flex flex-col"
+                style={{
+                  borderRadius: "14px",
+                  border: "1px solid #EFEFEF",
+                  padding: "16px 16px 14px",
+                }}
+              >
+                {/* Header row — avatar, name, and role/company. */}
+                <div className="flex items-center gap-2 mb-3">
+                  <img
+                    src={cs.avatar}
+                    alt={cs.name}
+                    className="shrink-0 rounded-full object-cover"
+                    style={{ width: 34, height: 34, border: "2px solid #fff", boxShadow: "0 1px 4px rgba(0,0,0,0.10)" }}
+                  />
+                  <div className="min-w-0">
+                    <p className="font-bold text-[#111111] leading-tight truncate" style={{ fontSize: "13px" }}>
+                      {cs.name}
+                    </p>
+                    <p className="text-[#5B5F66] mt-0.5 truncate" style={{ fontSize: "11px" }}>
+                      {cs.role}
                     </p>
                   </div>
+                </div>
 
-                  {/* Quote body — "before" situation as context */}
-                  <p
-                    className="text-[#5B5F66] leading-relaxed flex-1"
-                    style={{ fontSize: "13.5px" }}
-                  >
-                    "{cs.before} We built: {cs.built}"
-                  </p>
-
-                  {/* Stats — 2 bold numbers, matching reference */}
-                  <div className="flex gap-7 pt-4 mt-2" style={{ borderTop: "1px solid #F2F2F2" }}>
-                    <div>
-                      <p style={{ fontSize: "21px", lineHeight: 1.1, color: "#1A56DB", fontWeight: 400 }}>
-                        {cs.stats[0].value}
-                      </p>
-                      <p className="text-[#5B5F66] mt-0.5" style={{ fontSize: "11px" }}>
-                        {cs.stats[0].label}
-                      </p>
-                    </div>
-                    <div>
-                      <p style={{ fontSize: "21px", lineHeight: 1.1, color: "#1A56DB", fontWeight: 400 }}>
-                        {cs.stats[2].value}
-                      </p>
-                      <p className="text-[#5B5F66] mt-0.5" style={{ fontSize: "11px" }}>
-                        {cs.stats[2].label}
-                      </p>
-                    </div>
+                {/* Before / What we built */}
+                <div className="flex flex-col gap-2 flex-1 overflow-hidden">
+                  <div>
+                    <p className="font-bold text-[#111111]" style={{ fontSize: "11px" }}>Before</p>
+                    <p className="text-[#5B5F66] leading-relaxed mt-0.5" style={{ fontSize: "11.5px" }}>
+                      {cs.before}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="font-bold text-[#1A56DB]" style={{ fontSize: "11px" }}>What we built</p>
+                    <p className="text-[#5B5F66] leading-relaxed mt-0.5" style={{ fontSize: "11.5px" }}>
+                      {cs.built}
+                    </p>
                   </div>
                 </div>
 
+                {/* Stats — all 3 shown */}
+                <div className="flex justify-between gap-2 pt-3 mt-2" style={{ borderTop: "1px solid #F2F2F2" }}>
+                {cs.stats.map((stat, idx) => (
+                  <div key={idx} className="min-w-0">
+                    <p className="truncate" style={{ fontSize: "16px", lineHeight: 1.1, color: "#1A56DB", fontWeight: 700 }}>
+                      {stat.value}
+                    </p>
+                    <p className="text-[#5B5F66] mt-0.5 truncate" style={{ fontSize: "10px" }}>
+                      {stat.label}
+                    </p>
+                  </div>
+                ))}
+                </div>
               </div>
-            ))}
-            {/* Right breathing room */}
-            <div className="shrink-0 w-4" aria-hidden="true" />
-          </div>
-        </div>
 
-        {/* ── Arrow navigation — centered below, matching reference ── */}
-        <div className="flex items-center justify-center gap-3 mt-8 px-6">
-          <button
-            onClick={() => slide(-1)}
-            aria-label="Previous"
-            className="flex items-center justify-center rounded-full border border-[#DCDCDC] bg-white hover:border-[#1A56DB] transition-colors duration-150"
-            style={{ width: 36, height: 36 }}
-          >
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-              <path d="M9 11L5 7L9 3" stroke="#111111" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </button>
-          <button
-            onClick={() => slide(1)}
-            aria-label="Next"
-            className="flex items-center justify-center rounded-full border border-[#DCDCDC] bg-white hover:border-[#1A56DB] transition-colors duration-150"
-            style={{ width: 36, height: 36 }}
-          >
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-              <path d="M5 3L9 7L5 11" stroke="#111111" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </button>
+            </div>
+          ))}
         </div>
 
       </div>
@@ -1413,13 +1395,11 @@ export default function App() {
         >
           <div className="flex items-center shrink-0" style={{ position: "relative" }}>
             {AVATARS.map((avatar, i) => (
-              <img
+              <div
                 key={i}
-                src={avatar.src}
-                alt={avatar.alt}
-                width={40}
-                height={40}
-                className="rounded-full object-cover bg-[#e0e0e0]"
+                role="img"
+                aria-label={avatar.alt}
+                className="rounded-full bg-[#e0e0e0]"
                 style={{
                   width: 40,
                   height: 40,
@@ -1428,6 +1408,10 @@ export default function App() {
                   zIndex: 10 - i,
                   border: "2px solid #ffffff",
                   boxShadow: "0 1px 4px rgba(0,0,0,0.14)",
+                  backgroundImage: `url(${avatar.src})`,
+                  backgroundSize: avatar.zoom,
+                  backgroundPosition: "center 15%",
+                  backgroundRepeat: "no-repeat",
                 }}
               />
             ))}

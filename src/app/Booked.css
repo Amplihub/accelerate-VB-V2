@@ -1,0 +1,84 @@
+/* ─────────────────────────────────────────────
+   Booked — the two moments between now and the
+   call, on a rail. The connector is the same
+   device the landing page's Process section uses:
+   solid at the node, fading out along the run.
+───────────────────────────────────────────── */
+
+.bkd-steps {
+  list-style: none;
+  margin: 28px 0 0;
+  padding: 0;
+}
+
+.bkd-step {
+  display: flex;
+  gap: 14px;
+}
+
+/* Last node closes the rail — no trailing line, no trailing gap. */
+.bkd-step:last-child .bkd-step__line {
+  display: none;
+}
+
+.bkd-step:last-child .bkd-step__body {
+  padding-bottom: 0;
+}
+
+/* ── Rail ───────────────────────────────────── */
+.bkd-step__rail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  width: 10px;
+}
+
+.bkd-step__node {
+  width: 10px;
+  height: 10px;
+  margin-top: 5px;
+  border-radius: 50%;
+  background: #1a56db;
+  flex-shrink: 0;
+}
+
+.bkd-step__line {
+  flex: 1;
+  width: 0;
+  margin: 6px 0 2px;
+  border-left: 2px dashed #1a56db;
+  opacity: 0.4;
+}
+
+/* ── Body ───────────────────────────────────── */
+.bkd-step__body {
+  padding-bottom: 26px;
+}
+
+.bkd-step__when {
+  display: inline-block;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: #1a56db;
+  background: #eaf1ff;
+  padding: 3px 9px;
+  border-radius: 999px;
+}
+
+.bkd-step__title {
+  margin: 9px 0 0;
+  font-size: 15.5px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: #111111;
+}
+
+.bkd-step__text {
+  margin: 5px 0 0;
+  font-size: 14px;
+  line-height: 1.55;
+  color: #5b5f66;
+}
